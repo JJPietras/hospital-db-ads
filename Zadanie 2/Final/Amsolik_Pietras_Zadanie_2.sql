@@ -38,11 +38,21 @@
 --	(wartoúÊ aktualnego czynszu znajduje siÍ w tabeli nieruchomoúci, poprzednie 
 --	wartoúci w wynajÍcia). Wyniki podaj w postaci ...%
 
+	-- èLE WYST•PI• POWT”RZENIA
+
 	SELECT n.nieruchomoscnr, Str(n.czynsz * 100 / w.czynsz - 100) + '%'
 	FROM nieruchomosci n
 	INNER JOIN wynajecia w ON n.nieruchomoscnr = w.nieruchomoscNr
 	WHERE w.nieruchomoscNr = n.nieruchomoscnr
 	ORDER BY n.nieruchomoscnr
+
+	--PRAWID£OWO
+
+	SELECT N1.nieruchomoscNr, str((N1.Czynsz*100 / W1.Czynsz) -100) + '%' AS Podwyzka
+	FROM nieruchomosci N1, wynajecia W1
+	WHERE N1.nieruchomoscnr = w1.nieruchomoscNr AND w1.od_kiedy = (
+	SELECT min(W2.Od_kiedy) FROM wynajecia W2 WHERE W2.nieruchomoscNr = N1.nieruchomoscnr)
+
 
 
 
@@ -129,15 +139,15 @@
 
 --		a) zatrudnia ca≥a sieÊ biur
 
-		SELECT	SUM(IIF(imie LIKE '%a', 1, 0)) AS kobiety, 
-				SUM(IIF(imie NOT LIKE '%a',1, 0)) AS mezczyzni
+		SELECT	SUM(IIF(plec = 'K', 1, 0)) AS kobiety, 
+				SUM(IIF(plec <> 'K',1, 0)) AS mezczyzni
 		FROM personel
 
 --		b) zatrudniajπ poszczegÛlne biura
 
 		SELECT	b.biuroNr,
-				SUM(IIF(imie LIKE '%a', 1, 0)) AS kobiety, 
-				SUM(IIF(imie NOT LIKE '%a',1, 0)) AS mezczyzni
+				SUM(IIF(plec = 'K', 1, 0)) AS kobiety, 
+				SUM(IIF(plec <> 'K',1, 0)) AS mezczyzni
 		FROM personel
 		INNER JOIN biura b ON b.biuroNr = personel.biuroNr
 		GROUP BY b.biuroNr
@@ -145,8 +155,8 @@
 --		c) zatrudniajπ poszczegÛlne miasta
 
 		SELECT	b.miasto,
-				SUM(IIF(imie LIKE '%a', 1, 0)) AS kobiety, 
-				SUM(IIF(imie NOT LIKE '%a',1, 0)) AS mezczyzni
+				SUM(IIF(plec = 'K', 1, 0)) AS kobiety, 
+				SUM(IIF(plec <> 'K',1, 0)) AS mezczyzni
 		FROM personel
 		INNER JOIN biura b ON b.biuroNr = personel.biuroNr
 		GROUP BY b.miasto
@@ -154,7 +164,7 @@
 --		d) jest zatrudnionych na poszczegÛlnych stanowiskach
 
 		SELECT	stanowisko,
-				SUM(IIF(imie LIKE '%a', 1, 0)) AS kobiety, 
-				SUM(IIF(imie NOT LIKE '%a',1, 0)) AS mezczyzni
+				SUM(IIF(plec = 'K', 1, 0)) AS kobiety, 
+				SUM(IIF(plec <> 'K',1, 0)) AS mezczyzni
 		FROM personel
 		GROUP BY stanowisko
