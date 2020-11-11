@@ -1,12 +1,26 @@
+/************************************************
+ *												*
+ *	Zadanie: 4 									*
+ *	Termin:  24.11.2020							*
+ *												*
+ *	Autor:   Patryk  Amsolik (224246)			*
+ *	Autor:   Jakub   Pietras (224404)			*
+ *												*
+ ************************************************/
+
+
 -- Zadanie 1
 
 
 	print('Czesc, to ja')
 
+
 -- Zadanie 2
+
 
 	DECLARE	@num int = 4
 	PRINT 'ZMIENNA = ' + CAST(@num AS VARCHAR)
+
 
 -- Zadanie 3
 
@@ -20,7 +34,9 @@
 
 	PRINT @val
 
+
 -- Zadanie 4
+
 
 	DECLARE @i int = 1
 
@@ -30,7 +46,9 @@
 			SET @i += 1
 		END
 
+
 -- Zadanie 5
+
 
 	DECLARE @j INT = 3
 
@@ -48,6 +66,7 @@
 
 -- Zadanie 6
 
+
 	USE master
 	IF EXISTS(SELECT 1
           FROM master.dbo.sysdatabases
@@ -63,7 +82,9 @@
 		NAZWA_ODD VARCHAR(30)
 	)
 
+
 -- Zadanie 7
+
 
 	INSERT INTO ODDZIALY VALUES (1, 'Sales')
 	INSERT INTO ODDZIALY VALUES (2, 'Management')
@@ -128,6 +149,7 @@
 
 -- Zadanie 10
 
+
 	SELECT * FROM ODDZIALY
 
 	DECLARE @val INT
@@ -145,3 +167,5 @@
 	DEALLOCATE cur2
 
 	SELECT * FROM ODDZIALY
+	
+	
