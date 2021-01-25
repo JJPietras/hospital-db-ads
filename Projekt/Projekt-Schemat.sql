@@ -3,7 +3,7 @@
 --              PROJEKT SZPITAL
 --
 --  Autor:   	Jakub Pietras       (224404)
---  Autor:   	Patryk Amsolik      (224301)
+--  Autor:   	Patryk Amsolik      (224246)
 --  Zajęcia: 	Wtorek 14:00-15:30
 --	Termin:		16.06.2020
 --
@@ -866,15 +866,59 @@ GO
 GO
 
 
-
 --#################################################################################################################--
 --#																												  #--
 --#							    ZAPYTANIA - 13 DZIELENIE, 14 REKURSYJNE, 15 ROZMYTE      						  #--
 --#																												  #--
 --#################################################################################################################--
 
--- 4.   
+-- 1.   Podać łączne obciążenie finansowe szpitala wynikające z konieczności wypłaty pensji wszystkim pracownikom
+--      w roku 2010 po odliczeniu opłat za badania i zabiegi
 
+SELECT (SELECT sum(pensja) FROM lekarze WHERE DATEPART(YEAR, zatrudniony) <= 2010) - sum(koszt)
+FROM (SELECT koszt
+      FROM zabiegi, pacjeci
+      WHERE pacjent = id_pacjenta AND DATEPART(YEAR, rozpoczecie) = 2010
+      UNION ALL
+      SELECT koszt
+      FROM badania, pacjeci
+      WHERE pacjent = id_pacjenta AND DATEPART(YEAR, data_badania) = 2010) AS KWOTY(koszt)
+GO
+-- 2.   Podać lekarza, którzy wykonał najwięcej płatnych zabiegów w 2017
+
+SELECT TOP 1 id_lekarza, imie, nazwisko, count(*) as N'ilość płatnych zabiegów'
+FROM lekarze
+INNER JOIN wykonawcy_zabiegu WZ ON lekarze.id_lekarza = WZ.lekarz
+INNER JOIN zabiegi Z ON WZ.zabieg = Z.id_zabiegu
+WHERE koszt > 0 AND datepart(YEAR, rozpoczecie) = 2017
+GROUP BY id_lekarza, imie, nazwisko
+ORDER BY N'ilość płatnych zabiegów' DESC
+GO
+-- 3.   Podać imiona i nazwiska pacjentów, którzy mieli wykonany przynajmniej jeden zabieg bez obecności chirurga,
+--      a nie mieli wykonanego żadnego badania.
+
+SELECT imie, nazwisko
+FROM pacjeci
+WHERE id_pacjenta NOT IN (SELECT pacjent FROM badania)
+  AND id_pacjenta IN (SELECT pacjent FROM zabiegi)
+  AND id_pacjenta NOT IN (
+    SELECT Z.pacjent
+    FROM zabiegi Z
+    INNER JOIN wykonawcy_zabiegu WZ ON Z.id_zabiegu = WZ.zabieg
+    INNER JOIN lekarze L ON WZ.lekarz = L.id_lekarza
+    INNER JOIN profesje_lekarzy PL ON L.id_lekarza = PL.lekarz
+    WHERE PL.specjalizacja LIKE 'CH%')
+GO
+-- 4.   Podać minimalne zarobki pracowników zatrudnionych w kolejnych latach według roku zatrudnienia. Brane pod uwage
+--      są tylko lata podczas których zatrudnionych było min 3 pracowników, a minimalna pensja przekracza 6000.
+--      Wyniki posortować malejąco.
+
+SELECT DATEPART(YEAR, zatrudniony) AS rok, min(pensja) AS N'minimalna pensja'
+FROM lekarze
+GROUP BY DATEPART(YEAR, zatrudniony)
+HAVING COUNT(*) > 2 AND min(pensja) > 6000
+ORDER BY N'minimalna pensja' DESC
+GO
 -- 5.   Podać maksymalne kwoty dla specjalizacji pracowników na każdym oddziale posortować rosnąco
 
 SELECT O.nazwa_oddzialu, max(placa_max) AS  N'najwyższa możliwa pensja'
@@ -884,7 +928,7 @@ WHERE L.oddzial = O.id_oddzialu
   AND PL.specjalizacja = S.id_spec
 GROUP BY O.nazwa_oddzialu
 ORDER BY N'najwyższa możliwa pensja'
-
+GO
 -- 6.   Podać pełny adres oraz sumę wydatków pacjenta z największą sumą wydatków za zabiegi
 
 SELECT TOP 1 M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu, sum(Z.koszt) AS kwota
@@ -894,7 +938,7 @@ INNER JOIN adresy A ON P.adres = A.id_adresu
 INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
 GROUP BY M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu
 ORDER BY KWOTA DESC
-
+GO
 -- 7.   Pogrupować średnie zarobki lekarzy mieszkających w każdym województwie, zatrudnionych w pierwszą sobotą
 --      miesiąca. Posortować po kwocie malejąco
 
@@ -904,7 +948,7 @@ WHERE L.adres = A.id_adresu AND A.miasto = M.kod_pocztowy AND
       DATEPART(WEEKDAY, L.zatrudniony) = 7 AND DATEPART(DAY, L.zatrudniony) < 8
 GROUP BY M.wojewodztwo
 ORDER BY N'średnia pensja wojewódzka' DESC
-
+GO
 -- 8.   Porównać wydatki kobiet i mężczyżn na badania i zabiegi w sierpniu 2017 roku
 
 SELECT sum(iif(right(imie, 1) = 'a', koszt, 0)) AS 'Panie',
@@ -917,7 +961,7 @@ FROM (SELECT koszt, imie, rozpoczecie
       FROM badania, pacjeci
       WHERE pacjent = id_pacjenta) AS ZSBS(koszt, imie, termin)
 WHERE datepart(YEAR, termin) = 2017 AND datepart(MONTH, termin) = 8
-
+GO
 
 -- 9.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazawiska lekarzy, którzy ich operowali,
 --      a mieszkają w tym samym mieście. Uwzględnić zabiegi przed 2008 rokiem
@@ -935,7 +979,7 @@ INNER JOIN miasta M ON AP.miasto = M.kod_pocztowy
 WHERE AP.miasto = AL.miasto
   AND DATEPART(YEAR, Z.rozpoczecie) < 2008
 ORDER BY M.nazwa
-
+GO
 -- 10.  Zliczyć ilość każdej biegłości dla wszystkich lekarzy szpitala niebędących lekarzami medycyny pracy. W przypadku
 --      wielu specjalizacji zliczyć tylko tę, w której lekarz jest najbieglejszy
 
@@ -948,7 +992,7 @@ WHERE iif(PL1.bieglosc = 'wysoka', 3, iif(PL1.bieglosc = N'średnia', 2, 1)) = (
     FROM profesje_lekarzy PL2
     WHERE PL1.lekarz = PL2.lekarz
 )
-
+GO
 -- 11.  Podać minimalną płacę z mniej płatnej specjalizacji i maksymalną płacę z najbardziej płatnej specjalizacji
 --      lekarzy posiadających więcej niż jedną profesję. Przy każdej parze liczb wyświetlić ich imie i nazwisko jako
 --      jeden ciąg znaków oraz podać ich ID.
@@ -960,7 +1004,7 @@ INNER JOIN lekarze L ON PL.lekarz = L.id_lekarza
 GROUP BY L.imie, L.nazwisko, L.id_lekarza
 HAVING COUNT(*) > 1
 ORDER BY max DESC
-
+GO
 -- 12.  Wypisać imiona, nazwiska oraz liczbę preprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
 --      3 zabiegi i lekarze wykonujący te zabiegi nie byli chirurgami. Posortować po liczbie zabiegów malejąco
 
@@ -978,7 +1022,7 @@ WHERE id_zabiegu IN
 GROUP BY P.imie, P.nazwisko
 HAVING count(*) > 2
 ORDER BY N'liczba zabiegów' DESC
-
+GO
 
 -- 13.  (DZIELENIE) Podać imiona, nazwiska i ID tych anestezjologów, którzy byli obecni podczas wszystkich zabiegów
 --      wykonywanych przez chirurga dowolnej specjalizacji innej niż plastycznej.
@@ -1003,7 +1047,7 @@ WHERE id_lekarza = lekarz
                   AND zabieg = WZ.zabieg
             )
     )
-
+GO
 
 -- 14.  (REKURENCJA) Wypisać ilość badań, które pociągnęly za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
 --      Pogrupować po ilości pociągniętych za sobą badań.
@@ -1026,12 +1070,13 @@ WITH B1(id_badania, poprzednie, poziom) AS
 SELECT poziom AS N'długość serii', count(*) AS N'ilość'
 FROM B2
 GROUP BY poziom
+GO
 
 -- 15.  (NIEPRECYZYJNE) Podać chirurgów zarabiających dużo.
 
 -- CREATE FUNCTION SURGEON_HIGH_SALARY(@kwota MONEY, @a MONEY, @b MONEY) RETURNS INT AS
 -- BEGIN
--- 
+--
 -- END
 
 
@@ -1041,6 +1086,121 @@ GROUP BY poziom
 --#																												  #--
 --#################################################################################################################--
 
+--  PROCEDURA 1 - procedura dodająca nowego lekarza z określonymi w przekazanej tabeli specjalizacjami.
+--  W przypadku pensji wyższej niż maksymalna spośród wszystkich wybranych specjalizacji, zostaje przypisana najwyższa,
+--  z tych specjalizacji. W przypadku daty zatrudnienia wyższej niż obecny dzień, zostaje wybrana dzisiejsza data.
+
+CREATE TYPE SPECLIST AS TABLE ( spec_id CHAR(6), spec_bieg VARCHAR(7) )
+GO
+
+CREATE OR ALTER PROCEDURE PROCEDURA1(@imie VARCHAR(30), @nazwisko VARCHAR(30), @adres INT, @spec SPECLIST READONLY,
+                            @data_zatrudnienia DATE, @pensja MONEY = 4000, @oddzial CHAR(2) = 'CH') AS
+BEGIN
+    IF @data_zatrudnienia > GETDATE()
+        SET @data_zatrudnienia = GETDATE()
+
+    DECLARE @max_placa MONEY = (SELECT max(placa_max) FROM specjalizacje, @spec WHERE id_spec = spec_id)
+    IF @pensja > @max_placa
+        SET @pensja = @max_placa
+
+    DECLARE @nowe_id INT
+
+    DECLARE @OutputTable TABLE (id INT)
+    INSERT INTO lekarze OUTPUT inserted.id_lekarza INTO @OutputTable
+    VALUES (@oddzial, @data_zatrudnienia, @pensja, @imie, @nazwisko, @adres)
+
+    SET @nowe_id = (SELECT TOP 1 id FROM @OutputTable)
+
+    DECLARE @current_sepc_id CHAR(6), @current_spec_bieg VARCHAR(7)
+    DECLARE cur CURSOR FOR (SELECT * FROM @spec)
+    OPEN cur
+    FETCH NEXT FROM cur INTO @current_sepc_id, @current_spec_bieg
+
+    WHILE @@FETCH_STATUS = 0
+        BEGIN
+            INSERT INTO profesje_lekarzy VALUES (@nowe_id, @current_sepc_id, @current_spec_bieg)
+            FETCH cur INTO @current_sepc_id, @current_spec_bieg
+        END
+
+    CLOSE cur
+    DEALLOCATE cur
+
+END
+GO
+
+-- DECLARE @specjalizacje SPECLIST
+-- INSERT @specjalizacje VALUES ('CH_KLP', N'średnia'), ('CH_PLA', 'niska')
+-- EXEC PROCEDURA1 'JAN', 'KOWALSKI', 30, @specjalizacje, '2018-01-01', 40000 GO
+
+-- PROCEDURA 2 - procedura podwyższające pensje pracowników o zadaną kwotę zaokrągloną do max(max profesja).
+-- Procedura zwraca przez ostani parametr ilość pensji, które by przekroczyły limit. Istenieje możliwość zwiększenia
+-- pensji wszystkich pracowników poprzez podanie ciągu pustego jako oddział.
+
+CREATE OR ALTER PROCEDURE PROCEDURA2(@ilosc_przekroczonych INT OUTPUT, @pensja MONEY = 300, @oddzial CHAR(2) = 'CH') AS
+BEGIN
+    IF @pensja < 0
+        SET @pensja = 0
+
+    DECLARE cur CURSOR FOR (SELECT id_lekarza, pensja FROM lekarze WHERE oddzial = @oddzial OR @oddzial = '')
+    OPEN cur
+
+    DECLARE @id_lekarza INT, @aktualna_pensja MONEY, @max_pensja MONEY
+    FETCH NEXT FROM cur INTO @id_lekarza, @aktualna_pensja
+
+    WHILE @@fetch_status = 0
+        BEGIN
+            SET @max_pensja = (
+                SELECT max(placa_max)
+                FROM specjalizacje S, profesje_lekarzy PL
+                WHERE S.id_spec = PL.specjalizacja
+                  AND PL.lekarz = @id_lekarza
+            )
+            IF @aktualna_pensja + @pensja > @max_pensja
+                BEGIN
+                    SET @aktualna_pensja = @max_pensja
+                    SET @ilosc_przekroczonych += 1
+                END
+            ELSE SET @aktualna_pensja += @pensja
+            UPDATE lekarze SET pensja = @aktualna_pensja WHERE id_lekarza = @id_lekarza
+            FETCH NEXT FROM cur INTO @id_lekarza, @aktualna_pensja
+        END
+
+    CLOSE cur
+    DEALLOCATE cur
+END
+GO
+
+-- DECLARE @ilosc INT = 0
+-- EXEC PROCEDURA2 @ilosc OUTPUT, 3000, ''
+
+-- PROCEDURA 3 - procedura usuwająca z bazy informacje o wyszystkich zabiegach wybranego pacjenta przed
+-- wskazaną datą. Procedura zwraca ciąg znaków przechowujący imię i nazwisko oraz ilość usuniętych zabiegów.
+
+CREATE OR ALTER PROCEDURE PROCEDURA3(@log VARCHAR(100) OUTPUT, @pacjent INT, @data DATE = '2010-01-01') AS
+BEGIN
+    SET @log = (SELECT imie + ' ' + nazwisko + ' ' FROM pacjeci WHERE id_pacjenta = @pacjent)
+    SET @log += N'usunięte zabiegi: '
+
+    DELETE
+    FROM wykonawcy_zabiegu
+    WHERE zabieg IN (SELECT id_zabiegu FROM zabiegi WHERE pacjent = @pacjent AND rozpoczecie < @data)
+
+    DECLARE @usuniete_zabiegi AS TABLE ( zabieg INT )
+    DELETE
+    FROM zabiegi
+    OUTPUT deleted.id_zabiegu INTO @usuniete_zabiegi
+    WHERE pacjent = @pacjent AND rozpoczecie < @data
+
+    SET @log += (SELECT cast(count(zabieg) AS VARCHAR(4)) + ' ' FROM @usuniete_zabiegi)
+END
+GO
+
+SELECT * from zabiegi WHERE pacjent = 10
+DECLARE @log VARCHAR(100)
+EXEC PROCEDURA3 @log OUTPUT, 10, '2016-03-04'
+SELECT * from zabiegi WHERE pacjent = 10
+PRINT @log
+GO
 
 --#################################################################################################################--
 --#																												  #--
@@ -1049,19 +1209,19 @@ GROUP BY poziom
 --#################################################################################################################--
 
 
-SELECT * FROM miasta
-SELECT * FROM adresy
-SELECT * FROM specjalizacje
-SELECT * FROM lekarze
-SELECT * FROM profesje_lekarzy
-SELECT * FROM oddzialy
-SELECT * FROM pacjeci
-SELECT * FROM zabiegi
-SELECT * FROM wykonawcy_zabiegu
-SELECT * FROM badania
-
-USE master
-GO
+-- SELECT * FROM miasta
+-- SELECT * FROM adresy
+-- SELECT * FROM specjalizacje
+-- SELECT * FROM lekarze
+-- SELECT * FROM profesje_lekarzy
+-- SELECT * FROM oddzialy
+-- SELECT * FROM pacjeci
+-- SELECT * FROM zabiegi
+-- SELECT * FROM wykonawcy_zabiegu
+-- SELECT * FROM badania
+--
+-- USE master
+-- GO
 
 
 --#################################################################################################################--
