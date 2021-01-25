@@ -261,7 +261,7 @@ CREATE TABLE badania
         FOREIGN KEY (poprzednie) REFERENCES badania (id_badania),
 
     CONSTRAINT badania_koszt_value
-        CHECK (koszt IS NULL OR koszt > 0)
+        CHECK (koszt IS NULL OR koszt >= 0)
 )
 GO
 
@@ -275,202 +275,202 @@ GO
 --	############# MIASTA ############# -- (9)
 
 
-INSERT INTO miasta VALUES ('01-000', N'Warszawa',  N'Mazowieckie')
-INSERT INTO miasta VALUES ('30-000', N'Kraków',    N'Małopolskie')
-INSERT INTO miasta VALUES ('60-000', N'Poznań',    N'Wielkopolskie')
+INSERT INTO miasta VALUES ('01-000', N'Warszawa', N'Mazowieckie')
+INSERT INTO miasta VALUES ('30-000', N'Kraków', N'Małopolskie')
+INSERT INTO miasta VALUES ('60-000', N'Poznań', N'Wielkopolskie')
 
-INSERT INTO miasta VALUES ('26-600', N'Radom',     N'Mazowieckie')
-INSERT INTO miasta VALUES ('09-400', N'Płock',     N'Mazowieckie')
+INSERT INTO miasta VALUES ('26-600', N'Radom', N'Mazowieckie')
+INSERT INTO miasta VALUES ('09-400', N'Płock', N'Mazowieckie')
 
-INSERT INTO miasta VALUES ('33-100', N'Tarnów',    N'Małopolskie')
-INSERT INTO miasta VALUES ('33-300' ,N'Nowy Sącz', N'Małopolskie')
+INSERT INTO miasta VALUES ('33-100', N'Tarnów', N'Małopolskie')
+INSERT INTO miasta VALUES ('33-300', N'Nowy Sącz', N'Małopolskie')
 
-INSERT INTO miasta VALUES ('62-800', N'Kalisz',    N'Wielkopolskie')
-INSERT INTO miasta VALUES ('62-500', N'Konin',     N'Wielkopolskie')
+INSERT INTO miasta VALUES ('62-800', N'Kalisz', N'Wielkopolskie')
+INSERT INTO miasta VALUES ('62-500', N'Konin', N'Wielkopolskie')
 GO
 
 --	############# ADRESY ############# -- (90)
 
 
 --  dla lekarzy (30)
-INSERT INTO adresy VALUES ('26-600', N'Diamentowa',          '12', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Kryształowa',         '95', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Skośna',              '54',  '1')
-INSERT INTO adresy VALUES ('62-500', N'Skośna',              '54',  '4')
-INSERT INTO adresy VALUES ('09-400', N'Dębowa',               '6', NULL)
-INSERT INTO adresy VALUES ('33-300', N'Dzika',              '133',  '1')
-INSERT INTO adresy VALUES ('62-800', N'Dzika',              '133', '1A')
-INSERT INTO adresy VALUES ('01-000', N'Dzika',              '133',  '2')
-INSERT INTO adresy VALUES ('62-800', N'Długa',               '5C', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Zawiszy',              '4', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Rębowskiego',          '1', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Rębowskiego',          '2', NULL)
-INSERT INTO adresy VALUES ('26-600', N'Aleksandrowska',       '7', NULL)
-INSERT INTO adresy VALUES ('33-300', N'Mickiewicza',         '90', NULL)
-INSERT INTO adresy VALUES ('01-000', N'Okólna',              '45', '3B')
-INSERT INTO adresy VALUES ('33-100', N'Kolorowa',            '31', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Tkaczy',              '13', NULL)
-INSERT INTO adresy VALUES ('26-600', N'Chmielna',            '76', NULL)
-INSERT INTO adresy VALUES ('33-300', N'Szeroka',             '5A', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Jana Pawła',           '9', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Kazimierza Wielkiego', '4',  '2')
-INSERT INTO adresy VALUES ('60-000', N'Kazimierza Wielkiego', '4',  '6')
-INSERT INTO adresy VALUES ('26-600', N'Gałczyńskiego',        '3', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Witkacego',           '59', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Kurpińskiego',        '84', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Sosnowa',             '33', '1A')
-INSERT INTO adresy VALUES ('60-000', N'Mydlana',             '48', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Obrońców Ojczyzny',   '99', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Limanowskiego',       '91', '6C')
-INSERT INTO adresy VALUES ('62-500', N'Adamiaków',            '5', '1B')
+INSERT INTO adresy VALUES ('26-600', N'Diamentowa', '12', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Kryształowa', '95', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Skośna', '54', '1')
+INSERT INTO adresy VALUES ('62-500', N'Skośna', '54', '4')
+INSERT INTO adresy VALUES ('09-400', N'Dębowa', '6', NULL)
+INSERT INTO adresy VALUES ('33-300', N'Dzika', '133', '1')
+INSERT INTO adresy VALUES ('62-800', N'Dzika', '133', '1A')
+INSERT INTO adresy VALUES ('01-000', N'Dzika', '133', '2')
+INSERT INTO adresy VALUES ('62-800', N'Długa', '5C', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Zawiszy', '4', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Rębowskiego', '1', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Rębowskiego', '2', NULL)
+INSERT INTO adresy VALUES ('26-600', N'Aleksandrowska', '7', NULL)
+INSERT INTO adresy VALUES ('33-300', N'Mickiewicza', '90', NULL)
+INSERT INTO adresy VALUES ('01-000', N'Okólna', '45', '3B')
+INSERT INTO adresy VALUES ('33-100', N'Kolorowa', '31', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Tkaczy', '13', NULL)
+INSERT INTO adresy VALUES ('26-600', N'Chmielna', '76', NULL)
+INSERT INTO adresy VALUES ('33-300', N'Szeroka', '5A', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Jana Pawła', '9', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Kazimierza Wielkiego', '4', '2')
+INSERT INTO adresy VALUES ('60-000', N'Kazimierza Wielkiego', '4', '6')
+INSERT INTO adresy VALUES ('26-600', N'Gałczyńskiego', '3', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Witkacego', '59', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Kurpińskiego', '84', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Sosnowa', '33', '1A')
+INSERT INTO adresy VALUES ('60-000', N'Mydlana', '48', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Obrońców Ojczyzny', '99', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Limanowskiego', '91', '6C')
+INSERT INTO adresy VALUES ('62-500', N'Adamiaków', '5', '1B')
 
 --dla klientów (60)
-INSERT INTO adresy VALUES ('01-000', N'Polna',                        '106', NULL)
-INSERT INTO adresy VALUES ('33-300', N'Leśna',                        '110', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Słoneczna',                   '140A', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Krótka',                        '72', NULL)
-INSERT INTO adresy VALUES ('26-600', N'Szkolna',                       '32',  '1')
-INSERT INTO adresy VALUES ('26-600', N'Szkolna',                       '32',  '2')
-INSERT INTO adresy VALUES ('26-600', N'Ogrodowa',                     '112', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Lipowa',                        '16', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Łąkowa',                      '109C', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Brzozowa',                      '68', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Kwiatowa',                      '11', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Kościelna',                      '4',  '1')
-INSERT INTO adresy VALUES ('09-400', N'Kościelna',                      '4',  '2')
-INSERT INTO adresy VALUES ('30-000', N'Kościelna',                      '4', '2B')
-INSERT INTO adresy VALUES ('30-000', N'Sosnowa',                       '65', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Zielona',                       '91', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Parkowa',                      '131',  '4')
-INSERT INTO adresy VALUES ('60-000', N'Parkowa',                      '131',  '7')
-INSERT INTO adresy VALUES ('33-300', N'Akacjowa',                     '103', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Kolejowa',                     '56B',  '1')
-INSERT INTO adresy VALUES ('62-800', N'Kolejowa',                     '56B',  '2')
-INSERT INTO adresy VALUES ('62-800', N'Kolejowa',                     '56B',  '3')
-INSERT INTO adresy VALUES ('62-500', N'Kolejowa',                     '56B',  '4')
-INSERT INTO adresy VALUES ('62-800', N'Iskry',                        '169', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Kluczborska',                  '197', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Kontuszowa',                    '32', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Orlich Gniazd',                '124', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Lazurowa',                      '35', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Łagowska',                     '185', '2C')
-INSERT INTO adresy VALUES ('62-800', N'Miejska',                        '9', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Obrońców Tobruku',            '111D', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Prometeusza',                   '93', NULL)
-INSERT INTO adresy VALUES ('33-300', N'Pawła Stellerea',              '115', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Kazubów',                      '190', NULL)
-INSERT INTO adresy VALUES ('01-000', N'Kazimierza Wyki',               '79',  '4')
-INSERT INTO adresy VALUES ('60-000', N'Jamesa Joycea',                 '74', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Tadeusza Kutrzeby',             '32', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Szczotkarska',                  '53', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Strońska',                     '126', '2A')
-INSERT INTO adresy VALUES ('30-000', N'Zenona Klemensiewicza',         '34', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Zachodzącego Słońca',           '28', NULL)
-INSERT INTO adresy VALUES ('62-500', N'Stanisława Kunickiego',        '156', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Sosnowiecka',                  '28A', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Józefa Wybickiego',            '130', '5D')
-INSERT INTO adresy VALUES ('01-000', N'Karola Miarki',                 '45', NULL)
-INSERT INTO adresy VALUES ('62-800', N'Kazimierza Deyny',             '116', NULL)
-INSERT INTO adresy VALUES ('26-600', N'Łęgi',                         '187', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Oławska',                       '32', '1B')
-INSERT INTO adresy VALUES ('26-600', N'Okrętowa',                     '151', NULL)
+INSERT INTO adresy VALUES ('01-000', N'Polna', '106', NULL)
+INSERT INTO adresy VALUES ('33-300', N'Leśna', '110', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Słoneczna', '140A', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Krótka', '72', NULL)
+INSERT INTO adresy VALUES ('26-600', N'Szkolna', '32', '1')
+INSERT INTO adresy VALUES ('26-600', N'Szkolna', '32', '2')
+INSERT INTO adresy VALUES ('26-600', N'Ogrodowa', '112', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Lipowa', '16', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Łąkowa', '109C', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Brzozowa', '68', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Kwiatowa', '11', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Kościelna', '4', '1')
+INSERT INTO adresy VALUES ('09-400', N'Kościelna', '4', '2')
+INSERT INTO adresy VALUES ('30-000', N'Kościelna', '4', '2B')
+INSERT INTO adresy VALUES ('30-000', N'Sosnowa', '65', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Zielona', '91', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Parkowa', '131', '4')
+INSERT INTO adresy VALUES ('60-000', N'Parkowa', '131', '7')
+INSERT INTO adresy VALUES ('33-300', N'Akacjowa', '103', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Kolejowa', '56B', '1')
+INSERT INTO adresy VALUES ('62-800', N'Kolejowa', '56B', '2')
+INSERT INTO adresy VALUES ('62-800', N'Kolejowa', '56B', '3')
+INSERT INTO adresy VALUES ('62-500', N'Kolejowa', '56B', '4')
+INSERT INTO adresy VALUES ('62-800', N'Iskry', '169', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Kluczborska', '197', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Kontuszowa', '32', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Orlich Gniazd', '124', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Lazurowa', '35', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Łagowska', '185', '2C')
+INSERT INTO adresy VALUES ('62-800', N'Miejska', '9', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Obrońców Tobruku', '111D', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Prometeusza', '93', NULL)
+INSERT INTO adresy VALUES ('33-300', N'Pawła Stellerea', '115', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Kazubów', '190', NULL)
+INSERT INTO adresy VALUES ('01-000', N'Kazimierza Wyki', '79', '4')
+INSERT INTO adresy VALUES ('60-000', N'Jamesa Joycea', '74', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Tadeusza Kutrzeby', '32', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Szczotkarska', '53', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Strońska', '126', '2A')
+INSERT INTO adresy VALUES ('30-000', N'Zenona Klemensiewicza', '34', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Zachodzącego Słońca', '28', NULL)
+INSERT INTO adresy VALUES ('62-500', N'Stanisława Kunickiego', '156', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Sosnowiecka', '28A', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Józefa Wybickiego', '130', '5D')
+INSERT INTO adresy VALUES ('01-000', N'Karola Miarki', '45', NULL)
+INSERT INTO adresy VALUES ('62-800', N'Kazimierza Deyny', '116', NULL)
+INSERT INTO adresy VALUES ('26-600', N'Łęgi', '187', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Oławska', '32', '1B')
+INSERT INTO adresy VALUES ('26-600', N'Okrętowa', '151', NULL)
 INSERT INTO adresy VALUES ('01-000', N'Józefa Ignacego Kraszewskiego', '71', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Józefa Brandta',                 '5', NULL)
-INSERT INTO adresy VALUES ('01-000', N'Jana Kędzierskiego',            '73', '2D')
-INSERT INTO adresy VALUES ('60-000', N'Górczewska',                   '137', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Gołuchowska',                   '1C', NULL)
-INSERT INTO adresy VALUES ('09-400', N'Zeusa',                        '130', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Budy',                         '105', NULL)
-INSERT INTO adresy VALUES ('33-100', N'Czakowa',                       '78', NULL)
-INSERT INTO adresy VALUES ('60-000', N'Nowej Huty',                  '138A', '3C')
-INSERT INTO adresy VALUES ('33-300', N'Bronisława Markiewicza',        '22', NULL)
-INSERT INTO adresy VALUES ('30-000', N'Kampinoska',                   '145', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Józefa Brandta', '5', NULL)
+INSERT INTO adresy VALUES ('01-000', N'Jana Kędzierskiego', '73', '2D')
+INSERT INTO adresy VALUES ('60-000', N'Górczewska', '137', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Gołuchowska', '1C', NULL)
+INSERT INTO adresy VALUES ('09-400', N'Zeusa', '130', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Budy', '105', NULL)
+INSERT INTO adresy VALUES ('33-100', N'Czakowa', '78', NULL)
+INSERT INTO adresy VALUES ('60-000', N'Nowej Huty', '138A', '3C')
+INSERT INTO adresy VALUES ('33-300', N'Bronisława Markiewicza', '22', NULL)
+INSERT INTO adresy VALUES ('30-000', N'Kampinoska', '145', NULL)
 GO
 
 
 --	############# SPECJALIZACJE ############# -- (10)
 
 
-INSERT INTO specjalizacje VALUES ('AL_ERG', 'Alergologia',                 3500,  6900)
-INSERT INTO specjalizacje VALUES ('AN_EST', 'Anestezjologia',              5200, 10300)
+INSERT INTO specjalizacje VALUES ('AL_ERG', 'Alergologia', 3500, 6900)
+INSERT INTO specjalizacje VALUES ('AN_EST', 'Anestezjologia', 5200, 10300)
 INSERT INTO specjalizacje VALUES ('CH_KLP', 'Chirurgia klatki piersiowej', 7200, 16900)
-INSERT INTO specjalizacje VALUES ('CH_ONK', 'Chirurgia onkologiczna',      9600, 24500)
-INSERT INTO specjalizacje VALUES ('CH_PLA', 'Chirurgia plastyczna',        8500, 19900)
-INSERT INTO specjalizacje VALUES ('DE_RMA', 'Dermatologia',                3800,  8500)
-INSERT INTO specjalizacje VALUES ('KA_RDI', 'Kardiologia',                 4400, 11400)
-INSERT INTO specjalizacje VALUES ('MD_PRA', 'Medycyna Pracy',              3200,  6100)
-INSERT INTO specjalizacje VALUES ('OK_ULI', 'Okulistyka',                  4900,  9600)
-INSERT INTO specjalizacje VALUES ('ON_KOL', 'Onkologia',                   6700, 14300)
+INSERT INTO specjalizacje VALUES ('CH_ONK', 'Chirurgia onkologiczna', 9600, 24500)
+INSERT INTO specjalizacje VALUES ('CH_PLA', 'Chirurgia plastyczna', 8500, 19900)
+INSERT INTO specjalizacje VALUES ('DE_RMA', 'Dermatologia', 3800, 8500)
+INSERT INTO specjalizacje VALUES ('KA_RDI', 'Kardiologia', 4400, 11400)
+INSERT INTO specjalizacje VALUES ('MD_PRA', 'Medycyna Pracy', 3200, 6100)
+INSERT INTO specjalizacje VALUES ('OK_ULI', 'Okulistyka', 4900, 9600)
+INSERT INTO specjalizacje VALUES ('ON_KOL', 'Onkologia', 6700, 14300)
 GO
 
 --	################ ODDZIAŁY ################ -- (8)
 
 
-INSERT INTO oddzialy VALUES ('CH', N'Chirurgiczny',      NULL)
-INSERT INTO oddzialy VALUES ('ON', N'Onkologiczny',      NULL)
-INSERT INTO oddzialy VALUES ('AL', N'Alergologiczny',    NULL)
-INSERT INTO oddzialy VALUES ('DE', N'Dermatologiczny',   NULL)
-INSERT INTO oddzialy VALUES ('KA', N'Kardiologiczny',    NULL)
+INSERT INTO oddzialy VALUES ('CH', N'Chirurgiczny', NULL)
+INSERT INTO oddzialy VALUES ('ON', N'Onkologiczny', NULL)
+INSERT INTO oddzialy VALUES ('AL', N'Alergologiczny', NULL)
+INSERT INTO oddzialy VALUES ('DE', N'Dermatologiczny', NULL)
+INSERT INTO oddzialy VALUES ('KA', N'Kardiologiczny', NULL)
 INSERT INTO oddzialy VALUES ('AN', N'Anestezjologiczny', NULL)
-INSERT INTO oddzialy VALUES ('OK', N'Okulistyczny',      NULL)
-INSERT INTO oddzialy VALUES ('PO', N'Poradnia',          NULL)
+INSERT INTO oddzialy VALUES ('OK', N'Okulistyczny', NULL)
+INSERT INTO oddzialy VALUES ('PO', N'Poradnia', NULL)
 GO
 
 --	################ LEKARZE ################# -- (30)
 
 
-INSERT INTO lekarze VALUES ('CH', '2002-01-03', 16900, N'Robert',     N'Malinowski',    1)
-INSERT INTO lekarze VALUES ('CH', '2005-02-06',  9700, N'Bogumił',    N'Nowicki',       2)
-INSERT INTO lekarze VALUES ('CH', '2008-07-28',  7400, N'Hanna',      N'Nowak',         3)
-INSERT INTO lekarze VALUES ('CH', '2005-01-01', 14900, N'Marcel',     N'Stępień',       4)
-INSERT INTO lekarze VALUES ('CH', '2003-09-21',  9600, N'Mariola',    N'Majewska',      5)
+INSERT INTO lekarze VALUES ('CH', '2002-01-03', 16900, N'Robert', N'Malinowski', 1)
+INSERT INTO lekarze VALUES ('CH', '2005-02-06', 9700, N'Bogumił', N'Nowicki', 2)
+INSERT INTO lekarze VALUES ('CH', '2008-07-28', 7400, N'Hanna', N'Nowak', 3)
+INSERT INTO lekarze VALUES ('CH', '2005-01-01', 14900, N'Marcel', N'Stępień', 4)
+INSERT INTO lekarze VALUES ('CH', '2003-09-21', 9600, N'Mariola', N'Majewska', 5)
 
-INSERT INTO lekarze VALUES ('CH', '2014-03-01', 22200, N'Waldemar',   N'Mazur',         6)
-INSERT INTO lekarze VALUES ('CH', '2012-02-21', 10600, N'Jolanta',    N'Pawłowska',     7)
+INSERT INTO lekarze VALUES ('CH', '2014-03-01', 22200, N'Waldemar', N'Mazur', 6)
+INSERT INTO lekarze VALUES ('CH', '2012-02-21', 10600, N'Jolanta', N'Pawłowska', 7)
 
-INSERT INTO lekarze VALUES ('CH', '2007-07-01', 15700, N'Mariola',    N'Górska',        8)
-INSERT INTO lekarze VALUES ('CH', '2008-05-30', 14700, N'Krystian',   N'Błaszczyk',     9)
-INSERT INTO lekarze VALUES ('CH', '2003-11-29',  9100, N'Emil',       N'Zalewski',     10)
-
-
-INSERT INTO lekarze VALUES ('ON', '2012-06-06', 12100, N'Wiesława',   N'Wróblewska',   11)
-INSERT INTO lekarze VALUES ('ON', '2007-08-02',  9200, N'Sylwester',  N'Woźniak',      12)
-INSERT INTO lekarze VALUES ('ON', '2003-06-26',  8100, N'Lech',       N'Szymczak',     13)
+INSERT INTO lekarze VALUES ('CH', '2007-07-01', 15700, N'Mariola', N'Górska', 8)
+INSERT INTO lekarze VALUES ('CH', '2008-05-30', 14700, N'Krystian', N'Błaszczyk', 9)
+INSERT INTO lekarze VALUES ('CH', '2003-11-29', 9100, N'Emil', N'Zalewski', 10)
 
 
-INSERT INTO lekarze VALUES ('AL', '2009-07-17',  6200, N'Stefan',     N'Wysocki',      14)
-INSERT INTO lekarze VALUES ('AL', '2009-06-06',  5500, N'Renata',     N'Pawłowska',    15)
-INSERT INTO lekarze VALUES ('AL', '2016-07-10',  5100, N'Maciej',     N'Walczak',      16)
-INSERT INTO lekarze VALUES ('AL', '2005-03-09',  4200, N'Marta',      N'Przybylska',   17)
-INSERT INTO lekarze VALUES ('AL', '2020-08-31',  4300, N'Małgorzata', N'Ziółkowska',   18)
+INSERT INTO lekarze VALUES ('ON', '2012-06-06', 12100, N'Wiesława', N'Wróblewska', 11)
+INSERT INTO lekarze VALUES ('ON', '2007-08-02', 9200, N'Sylwester', N'Woźniak', 12)
+INSERT INTO lekarze VALUES ('ON', '2003-06-26', 8100, N'Lech', N'Szymczak', 13)
 
 
-INSERT INTO lekarze VALUES ('DE', '2004-01-17',  8300, N'Grzegorz',   N'Sikorski',     19)
-INSERT INTO lekarze VALUES ('DE', '2016-01-02',  5100, N'Józef',      N'Szewczyk',     20)
+INSERT INTO lekarze VALUES ('AL', '2009-07-17', 6200, N'Stefan', N'Wysocki', 14)
+INSERT INTO lekarze VALUES ('AL', '2009-06-06', 5500, N'Renata', N'Pawłowska', 15)
+INSERT INTO lekarze VALUES ('AL', '2016-07-10', 5100, N'Maciej', N'Walczak', 16)
+INSERT INTO lekarze VALUES ('AL', '2005-03-09', 4200, N'Marta', N'Przybylska', 17)
+INSERT INTO lekarze VALUES ('AL', '2020-08-31', 4300, N'Małgorzata', N'Ziółkowska', 18)
 
 
-INSERT INTO lekarze VALUES ('KA', '2003-05-18', 10500, N'Szczepan',   N'Borowski',     21)
-INSERT INTO lekarze VALUES ('KA', '2014-06-06',  5000, N'Emil',       N'Walczak',      22)
+INSERT INTO lekarze VALUES ('DE', '2004-01-17', 8300, N'Grzegorz', N'Sikorski', 19)
+INSERT INTO lekarze VALUES ('DE', '2016-01-02', 5100, N'Józef', N'Szewczyk', 20)
 
 
-INSERT INTO lekarze VALUES ('AN', '2003-04-20', 10200, N'Mikołaj',    N'Szulc',        23)
-INSERT INTO lekarze VALUES ('AN', '2004-01-23',  7600, N'Halina',     N'Sokołowska',   24)
-INSERT INTO lekarze VALUES ('AN', '2007-11-29',  6200, N'Halina',     N'Jakubowska',   25)
-INSERT INTO lekarze VALUES ('AN', '2004-08-05',  8500, N'Hubert',     N'Andrzejewski', 26)
+INSERT INTO lekarze VALUES ('KA', '2003-05-18', 10500, N'Szczepan', N'Borowski', 21)
+INSERT INTO lekarze VALUES ('KA', '2014-06-06', 5000, N'Emil', N'Walczak', 22)
 
 
-INSERT INTO lekarze VALUES ('OK', '2010-08-20',  9400, N'Lech',       N'Adamski',      27)
-INSERT INTO lekarze VALUES ('OK', '2004-02-03',  6700, N'Aneta',      N'Górska',       28)
-INSERT INTO lekarze VALUES ('OK', '2003-05-06',  7700, N'Wiesława',   N'Baran',        29)
+INSERT INTO lekarze VALUES ('AN', '2003-04-20', 10200, N'Mikołaj', N'Szulc', 23)
+INSERT INTO lekarze VALUES ('AN', '2004-01-23', 7600, N'Halina', N'Sokołowska', 24)
+INSERT INTO lekarze VALUES ('AN', '2007-11-29', 6200, N'Halina', N'Jakubowska', 25)
+INSERT INTO lekarze VALUES ('AN', '2004-08-05', 8500, N'Hubert', N'Andrzejewski', 26)
 
 
-INSERT INTO lekarze VALUES ('PO', '2008-02-01',  5600, N'Cezary',     N'Król',         30)
+INSERT INTO lekarze VALUES ('OK', '2010-08-20', 9400, N'Lech', N'Adamski', 27)
+INSERT INTO lekarze VALUES ('OK', '2004-02-03', 6700, N'Aneta', N'Górska', 28)
+INSERT INTO lekarze VALUES ('OK', '2003-05-06', 7700, N'Wiesława', N'Baran', 29)
+
+
+INSERT INTO lekarze VALUES ('PO', '2008-02-01', 5600, N'Cezary', N'Król', 30)
 GO
 
 --ordynatorzy
 
 
-UPDATE oddzialy SET ordynator =  1 WHERE id_oddzialu = 'CH'
+UPDATE oddzialy SET ordynator = 1 WHERE id_oddzialu = 'CH'
 UPDATE oddzialy SET ordynator = 11 WHERE id_oddzialu = 'ON'
 UPDATE oddzialy SET ordynator = 14 WHERE id_oddzialu = 'AL'
 UPDATE oddzialy SET ordynator = 19 WHERE id_oddzialu = 'DE'
@@ -481,19 +481,18 @@ UPDATE oddzialy SET ordynator = 27 WHERE id_oddzialu = 'OK'
 GO
 
 --	################ PROFESJE LEKARZY ################# -- (30)
-SELECT * from profesje_lekarzy
 
-INSERT INTO profesje_lekarzy VALUES (1,  'CH_KLP', N'wysoka')
-INSERT INTO profesje_lekarzy VALUES (2,  'CH_KLP', N'średnia')
-INSERT INTO profesje_lekarzy VALUES (3,  'CH_KLP', N'średnia')
-INSERT INTO profesje_lekarzy VALUES (4,  'CH_KLP', N'wysoka')
-INSERT INTO profesje_lekarzy VALUES (5,  'CH_KLP', N'niska')
+INSERT INTO profesje_lekarzy VALUES (1, 'CH_KLP', N'wysoka')
+INSERT INTO profesje_lekarzy VALUES (2, 'CH_KLP', N'średnia')
+INSERT INTO profesje_lekarzy VALUES (3, 'CH_KLP', N'średnia')
+INSERT INTO profesje_lekarzy VALUES (4, 'CH_KLP', N'wysoka')
+INSERT INTO profesje_lekarzy VALUES (5, 'CH_KLP', N'niska')
 
-INSERT INTO profesje_lekarzy VALUES (6,  'CH_ONK', N'wysoka')
-INSERT INTO profesje_lekarzy VALUES (7,  'CH_ONK', N'niska')
+INSERT INTO profesje_lekarzy VALUES (6, 'CH_ONK', N'wysoka')
+INSERT INTO profesje_lekarzy VALUES (7, 'CH_ONK', N'niska')
 
-INSERT INTO profesje_lekarzy VALUES (8,  'CH_PLA', N'wysoka')
-INSERT INTO profesje_lekarzy VALUES (9,  'CH_PLA', N'wysoka')
+INSERT INTO profesje_lekarzy VALUES (8, 'CH_PLA', N'wysoka')
+INSERT INTO profesje_lekarzy VALUES (9, 'CH_PLA', N'wysoka')
 INSERT INTO profesje_lekarzy VALUES (10, 'CH_PLA', N'średnia')
 
 
@@ -534,10 +533,10 @@ INSERT INTO profesje_lekarzy VALUES (30, 'MD_PRA', N'średnia')
 --lekarze z wieloma specjalnościami (5)
 
 
-INSERT INTO profesje_lekarzy VALUES (1,  'CH_ONK', N'średnia')
-INSERT INTO profesje_lekarzy VALUES (1,  'CH_PLA', N'średnia')
+INSERT INTO profesje_lekarzy VALUES (1, 'CH_ONK', N'średnia')
+INSERT INTO profesje_lekarzy VALUES (1, 'CH_PLA', N'średnia')
 
-INSERT INTO profesje_lekarzy VALUES (7,  'ON_KOL', N'średnia')
+INSERT INTO profesje_lekarzy VALUES (7, 'ON_KOL', N'średnia')
 
 INSERT INTO profesje_lekarzy VALUES (15, 'DE_RMA', N'niska')
 
@@ -547,86 +546,86 @@ GO
 --	################ PACJĘI ################# -- (60)
 
 
-INSERT INTO pacjeci VALUES (N'Dominik',     N'Wróblewski',      31)
-INSERT INTO pacjeci VALUES (N'Marian',      N'Urbański',        32)
-INSERT INTO pacjeci VALUES (N'Marzena',     N'Kowalczyk',       33)
-INSERT INTO pacjeci VALUES (N'Sara',        N'Pietrzak',        34)
-INSERT INTO pacjeci VALUES (N'Teresa',      N'Stępień',         35)
-INSERT INTO pacjeci VALUES (N'Klaudia',     N'Pawlak',          36)
-INSERT INTO pacjeci VALUES (N'Katarzyna',   N'Kalinowski',      37)
-INSERT INTO pacjeci VALUES (N'Igor',        N'Baran',           38)
-INSERT INTO pacjeci VALUES (N'Mariola',     N'Zawadzki',        39)
-INSERT INTO pacjeci VALUES (N'Milena',      N'Włodarczyk',      40)
-INSERT INTO pacjeci VALUES (N'Jadwiga',     N'Jasiński',        41)
-INSERT INTO pacjeci VALUES (N'Patryk',      N'Kowalski',        42)
-INSERT INTO pacjeci VALUES (N'Konrad',      N'Zając',           43)
-INSERT INTO pacjeci VALUES (N'Bartłomiej',  N'Cieślak',         44)
-INSERT INTO pacjeci VALUES (N'Karina',      N'Górski',          45)
-INSERT INTO pacjeci VALUES (N'Samanta',     N'Rutkowski',       46)
-INSERT INTO pacjeci VALUES (N'Renata',      N'Nowak',           47)
-INSERT INTO pacjeci VALUES (N'Julia',       N'Szulc',           48)
-INSERT INTO pacjeci VALUES (N'Anna',        N'Wilk',            49)
-INSERT INTO pacjeci VALUES (N'Robert',      N'Krupa',           50)
-INSERT INTO pacjeci VALUES (N'Mirosława',   N'Pawłowski',       51)
-INSERT INTO pacjeci VALUES (N'Mariusz',     N'Sokołowski',      52)
-INSERT INTO pacjeci VALUES (N'Bartłomiej',  N'Jakubowski',      53)
-INSERT INTO pacjeci VALUES (N'Natalia',     N'Piotrowski',      54)
-INSERT INTO pacjeci VALUES (N'Zuzanna',     N'Kubiak',          55)
-INSERT INTO pacjeci VALUES (N'Zdzisław',    N'Wojciechowski',   56)
-INSERT INTO pacjeci VALUES (N'Andrzej',     N'Baranowski',      57)
-INSERT INTO pacjeci VALUES (N'Lech',        N'Zieliński',       58)
-INSERT INTO pacjeci VALUES (N'Igor',        N'Wasilewski',      59)
-INSERT INTO pacjeci VALUES (N'Zdzisław',    N'Woźniak',         60)
-INSERT INTO pacjeci VALUES (N'Bogumił',     N'Rutkowski',       61)
-INSERT INTO pacjeci VALUES (N'Krystyna',    N'Wójcik',          62)
-INSERT INTO pacjeci VALUES (N'Walenty',     N'Sikorski',        63)
-INSERT INTO pacjeci VALUES (N'Wojciech',    N'Król',            64)
-INSERT INTO pacjeci VALUES (N'Adam',        N'Konieczny',       65)
-INSERT INTO pacjeci VALUES (N'Patrycja',    N'Czarnecki',       66)
-INSERT INTO pacjeci VALUES (N'Jakub',       N'Jasiński',        67)
-INSERT INTO pacjeci VALUES (N'Magdalena',   N'Andrzejewski',    68)
-INSERT INTO pacjeci VALUES (N'Kamil',       N'Król',            69)
-INSERT INTO pacjeci VALUES (N'Andrzej',     N'Kaczmarek',       70)
-INSERT INTO pacjeci VALUES (N'Rafał',       N'Olszewski',       71)
-INSERT INTO pacjeci VALUES (N'Bartłomiej',  N'Zawadzki',        72)
-INSERT INTO pacjeci VALUES (N'Sabina',      N'Nowakowski',      73)
-INSERT INTO pacjeci VALUES (N'Sylwester',   N'Pietrzak',        74)
-INSERT INTO pacjeci VALUES (N'Krystyna',    N'Jankowski',       75)
-INSERT INTO pacjeci VALUES (N'Katarzyna',   N'Jabłoński',       76)
-INSERT INTO pacjeci VALUES (N'Damian',      N'Głowacki',        77)
-INSERT INTO pacjeci VALUES (N'Małgorzata',  N'Czerwiński',      78)
-INSERT INTO pacjeci VALUES (N'Wiktor',      N'Konieczny',       79)
-INSERT INTO pacjeci VALUES (N'Jakub',       N'Kubiak',          80)
-INSERT INTO pacjeci VALUES (N'Daniel',      N'Woźniak',         81)
-INSERT INTO pacjeci VALUES (N'Jędrzej',     N'Maciejewski',     82)
-INSERT INTO pacjeci VALUES (N'Marzena',     N'Adamczyk',        83)
-INSERT INTO pacjeci VALUES (N'Zofia',       N'Cieślak',         84)
-INSERT INTO pacjeci VALUES (N'Henryk',      N'Głowacki',        85)
-INSERT INTO pacjeci VALUES (N'Paulina',     N'Rutkowski',       86)
-INSERT INTO pacjeci VALUES (N'Małgorzata',  N'Adamski',         87)
-INSERT INTO pacjeci VALUES (N'Katarzyna',   N'Zając',           88)
-INSERT INTO pacjeci VALUES (N'Sebastian',   N'Maciejewski',     89)
-INSERT INTO pacjeci VALUES (N'Ireneusz',    N'Maciejewski',     90)
+INSERT INTO pacjeci VALUES (N'Dominik', N'Wróblewski', 31)
+INSERT INTO pacjeci VALUES (N'Marian', N'Urbański', 32)
+INSERT INTO pacjeci VALUES (N'Marzena', N'Kowalczyk', 33)
+INSERT INTO pacjeci VALUES (N'Sara', N'Pietrzak', 34)
+INSERT INTO pacjeci VALUES (N'Teresa', N'Stępień', 35)
+INSERT INTO pacjeci VALUES (N'Klaudia', N'Pawlak', 36)
+INSERT INTO pacjeci VALUES (N'Katarzyna', N'Kalinowski', 37)
+INSERT INTO pacjeci VALUES (N'Igor', N'Baran', 38)
+INSERT INTO pacjeci VALUES (N'Mariola', N'Zawadzki', 39)
+INSERT INTO pacjeci VALUES (N'Milena', N'Włodarczyk', 40)
+INSERT INTO pacjeci VALUES (N'Jadwiga', N'Jasiński', 41)
+INSERT INTO pacjeci VALUES (N'Patryk', N'Kowalski', 42)
+INSERT INTO pacjeci VALUES (N'Konrad', N'Zając', 43)
+INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Cieślak', 44)
+INSERT INTO pacjeci VALUES (N'Karina', N'Górski', 45)
+INSERT INTO pacjeci VALUES (N'Samanta', N'Rutkowski', 46)
+INSERT INTO pacjeci VALUES (N'Renata', N'Nowak', 47)
+INSERT INTO pacjeci VALUES (N'Julia', N'Szulc', 48)
+INSERT INTO pacjeci VALUES (N'Anna', N'Wilk', 49)
+INSERT INTO pacjeci VALUES (N'Robert', N'Krupa', 50)
+INSERT INTO pacjeci VALUES (N'Mirosława', N'Pawłowski', 51)
+INSERT INTO pacjeci VALUES (N'Mariusz', N'Sokołowski', 52)
+INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Jakubowski', 53)
+INSERT INTO pacjeci VALUES (N'Natalia', N'Piotrowski', 54)
+INSERT INTO pacjeci VALUES (N'Zuzanna', N'Kubiak', 55)
+INSERT INTO pacjeci VALUES (N'Zdzisław', N'Wojciechowski', 56)
+INSERT INTO pacjeci VALUES (N'Andrzej', N'Baranowski', 57)
+INSERT INTO pacjeci VALUES (N'Lech', N'Zieliński', 58)
+INSERT INTO pacjeci VALUES (N'Igor', N'Wasilewski', 59)
+INSERT INTO pacjeci VALUES (N'Zdzisław', N'Woźniak', 60)
+INSERT INTO pacjeci VALUES (N'Bogumił', N'Rutkowski', 61)
+INSERT INTO pacjeci VALUES (N'Krystyna', N'Wójcik', 62)
+INSERT INTO pacjeci VALUES (N'Walenty', N'Sikorski', 63)
+INSERT INTO pacjeci VALUES (N'Wojciech', N'Król', 64)
+INSERT INTO pacjeci VALUES (N'Adam', N'Konieczny', 65)
+INSERT INTO pacjeci VALUES (N'Patrycja', N'Czarnecki', 66)
+INSERT INTO pacjeci VALUES (N'Jakub', N'Jasiński', 67)
+INSERT INTO pacjeci VALUES (N'Magdalena', N'Andrzejewski', 68)
+INSERT INTO pacjeci VALUES (N'Kamil', N'Król', 69)
+INSERT INTO pacjeci VALUES (N'Andrzej', N'Kaczmarek', 70)
+INSERT INTO pacjeci VALUES (N'Rafał', N'Olszewski', 71)
+INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Zawadzki', 72)
+INSERT INTO pacjeci VALUES (N'Sabina', N'Nowakowski', 73)
+INSERT INTO pacjeci VALUES (N'Sylwester', N'Pietrzak', 74)
+INSERT INTO pacjeci VALUES (N'Krystyna', N'Jankowski', 75)
+INSERT INTO pacjeci VALUES (N'Katarzyna', N'Jabłoński', 76)
+INSERT INTO pacjeci VALUES (N'Damian', N'Głowacki', 77)
+INSERT INTO pacjeci VALUES (N'Małgorzata', N'Czerwiński', 78)
+INSERT INTO pacjeci VALUES (N'Wiktor', N'Konieczny', 79)
+INSERT INTO pacjeci VALUES (N'Jakub', N'Kubiak', 80)
+INSERT INTO pacjeci VALUES (N'Daniel', N'Woźniak', 81)
+INSERT INTO pacjeci VALUES (N'Jędrzej', N'Maciejewski', 82)
+INSERT INTO pacjeci VALUES (N'Marzena', N'Adamczyk', 83)
+INSERT INTO pacjeci VALUES (N'Zofia', N'Cieślak', 84)
+INSERT INTO pacjeci VALUES (N'Henryk', N'Głowacki', 85)
+INSERT INTO pacjeci VALUES (N'Paulina', N'Rutkowski', 86)
+INSERT INTO pacjeci VALUES (N'Małgorzata', N'Adamski', 87)
+INSERT INTO pacjeci VALUES (N'Katarzyna', N'Zając', 88)
+INSERT INTO pacjeci VALUES (N'Sebastian', N'Maciejewski', 89)
+INSERT INTO pacjeci VALUES (N'Ireneusz', N'Maciejewski', 90)
 GO
 
 --	################ ZABIEGI ################# -- (30)
 
 
-/* 1*/INSERT INTO zabiegi VALUES (1,  4600, '2017-08-19 12:00:00', '2017-08-19 12:45:00', N'Usunięcie tkanki raka płuc')
-/* 2*/INSERT INTO zabiegi VALUES (1,  3300, '2018-04-24 16:30:00', '2018-04-24 17:30:00', N'Dalsze usunięcie tkanki raka płuc')
-/* 3*/INSERT INTO zabiegi VALUES (1,   200, '2012-10-03 08:15:00', '2012-10-03 08:25:00', N'Wycięcie znamienia na prawej ręce')
-/* 4*/INSERT INTO zabiegi VALUES (2,     0, '2016-12-03 10:20:00', '2016-12-03 10:40:00', N'Usunięcie zaćmy')
-/* 5*/INSERT INTO zabiegi VALUES (3,  4400, '2007-06-16 13:05:00', '2007-06-16 16:20:00', N'Założenie bajpasów')
-/* 6*/INSERT INTO zabiegi VALUES (4,  2600, '2013-04-11 18:10:00', '2013-04-11 20:30:00', N'Odsysanie tłuszczu z podbrzusza')
-/* 7*/INSERT INTO zabiegi VALUES (4,  4400, '2007-06-18 15:30:00', '2007-06-18 16:00:00', N'Usunięcie nadmiaru tkanki tłuszczowej z twarzy')
-/* 8*/INSERT INTO zabiegi VALUES (5,   900, '2008-12-09 10:12:00', '2008-12-09 10:37:00', N'Usunięcie zablokowanego jedzenia z przełyku')
-/* 9*/INSERT INTO zabiegi VALUES (6,  1200, '2017-08-19 15:30:00', '2017-08-19 15:35:00', N'Wycięcie znamienia na twarzy')
-/*10*/INSERT INTO zabiegi VALUES (6,   300, '2005-06-09 17:00:00', '2005-06-09 17:20:00', N'Usunięcie jaskry')
-/*11*/INSERT INTO zabiegi VALUES (6,   200, '2008-02-09 14:40:00', '2008-02-09 14:55:00', N'Nastawieie ramienia')
-/*12*/INSERT INTO zabiegi VALUES (7,     0, '2016-04-04 13:30:00', '2016-04-04 17:55:00', N'Rekonstrukcja czaszki po wypadku')
-/*13*/INSERT INTO zabiegi VALUES (7,   300, '2005-04-10 12:20:00', '2005-04-10 12:30:00', N'Wycięcie znamienia z lewej nogi')
-/*14*/INSERT INTO zabiegi VALUES (8,  1800, '2003-11-07 18:05:00', '2003-11-07 18:30:00', N'Ewisceracja lewego oka')
-/*15*/INSERT INTO zabiegi VALUES (9,  1500, '2006-02-03 15:09:00', '2006-02-03 15:48:00', N'Zatrzymanie krwotoku wewnętrznego')
+/* 1*/INSERT INTO zabiegi VALUES (1, 4600, '2017-08-19 12:00:00', '2017-08-19 12:45:00', N'Usunięcie tkanki raka płuc')
+/* 2*/INSERT INTO zabiegi VALUES (1, 3300, '2018-04-24 16:30:00', '2018-04-24 17:30:00', N'Dalsze usunięcie tkanki raka płuc')
+/* 3*/INSERT INTO zabiegi VALUES (1, 200, '2012-10-03 08:15:00', '2012-10-03 08:25:00', N'Wycięcie znamienia na prawej ręce')
+/* 4*/INSERT INTO zabiegi VALUES (2, 0, '2016-12-03 10:20:00', '2016-12-03 10:40:00', N'Usunięcie zaćmy')
+/* 5*/INSERT INTO zabiegi VALUES (3, 4400, '2007-06-16 13:05:00', '2007-06-16 16:20:00', N'Założenie bajpasów')
+/* 6*/INSERT INTO zabiegi VALUES (4, 2600, '2013-04-11 18:10:00', '2013-04-11 20:30:00', N'Odsysanie tłuszczu z podbrzusza')
+/* 7*/INSERT INTO zabiegi VALUES (4, 4400, '2007-06-18 15:30:00', '2007-06-18 16:00:00', N'Usunięcie nadmiaru tkanki tłuszczowej z twarzy')
+/* 8*/INSERT INTO zabiegi VALUES (5, 900, '2008-12-09 10:12:00', '2008-12-09 10:37:00', N'Usunięcie zablokowanego jedzenia z przełyku')
+/* 9*/INSERT INTO zabiegi VALUES (6, 1200, '2017-08-19 15:30:00', '2017-08-19 15:35:00', N'Wycięcie znamienia na twarzy')
+/*10*/INSERT INTO zabiegi VALUES (6, 300, '2005-06-09 17:00:00', '2005-06-09 17:20:00', N'Usunięcie jaskry')
+/*11*/INSERT INTO zabiegi VALUES (6, 200, '2008-02-09 14:40:00', '2008-02-09 14:55:00', N'Nastawieie ramienia')
+/*12*/INSERT INTO zabiegi VALUES (7, 0, '2016-04-04 13:30:00', '2016-04-04 17:55:00', N'Rekonstrukcja czaszki po wypadku')
+/*13*/INSERT INTO zabiegi VALUES (7, 300, '2005-04-10 12:20:00', '2005-04-10 12:30:00', N'Wycięcie znamienia z lewej nogi')
+/*14*/INSERT INTO zabiegi VALUES (8, 1800, '2003-11-07 18:05:00', '2003-11-07 18:30:00', N'Ewisceracja lewego oka')
+/*15*/INSERT INTO zabiegi VALUES (9, 1500, '2006-02-03 15:09:00', '2006-02-03 15:48:00', N'Zatrzymanie krwotoku wewnętrznego')
 /*16*/INSERT INTO zabiegi VALUES (10, 3700, '2013-12-21 11:10:00', '2013-12-21 11:50:00', N'Podniesienie plastyczne podbródka')
 /*17*/INSERT INTO zabiegi VALUES (10, 1300, '2014-06-30 19:13:00', '2014-06-30 19:27:00', N'Usunięcie kurzych łapek')
 /*18*/INSERT INTO zabiegi VALUES (10, 1200, '2015-11-11 21:20:00', '2015-11-11 22:00:00', N'Depilacja laserowa')
@@ -636,7 +635,7 @@ GO
 /*22*/INSERT INTO zabiegi VALUES (12, 4000, '2015-07-26 14:02:00', '2015-07-26 14:27:00', N'Założenie bajpasów')
 /*23*/INSERT INTO zabiegi VALUES (13, 2200, '2018-06-05 15:15:00', '2018-06-05 15:25:00', N'Usunięcie zmian skórnych na nosie')
 /*24*/INSERT INTO zabiegi VALUES (13, 1700, '2017-01-23 16:30:00', '2017-01-23 16:40:00', N'Usunięcie zmian skórnych na plecach')
-/*25*/INSERT INTO zabiegi VALUES (13,  500, '2016-01-17 14:50:00', '2016-01-17 15:15:00', N'Usunięcie zmian skórnych na szyi')
+/*25*/INSERT INTO zabiegi VALUES (13, 500, '2016-01-17 14:50:00', '2016-01-17 15:15:00', N'Usunięcie zmian skórnych na szyi')
 /*26*/INSERT INTO zabiegi VALUES (14, 1400, '2014-11-26 07:00:00', '2014-11-26 09:30:00', N'Unieruchomienie szczęki')
 /*27*/INSERT INTO zabiegi VALUES (15, 2900, '2008-12-13 12:30:00', '2008-12-13 13:00:00', N'Podanie chemii przeciw glejakowi')
 /*28*/INSERT INTO zabiegi VALUES (16, 2300, '2004-07-05 13:40:00', '2004-07-05 14:10:00', N'Napromienianie guzów krtani')
@@ -647,44 +646,44 @@ GO
 --	################ WYKONAWCY ZABIEGÓW ################# -- (30)
 
 --1.
-INSERT INTO wykonawcy_zabiegu VALUES (1,   1)
-INSERT INTO wykonawcy_zabiegu VALUES (1,  28)
-INSERT INTO wykonawcy_zabiegu VALUES (1,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (1, 1)
+INSERT INTO wykonawcy_zabiegu VALUES (1, 28)
+INSERT INTO wykonawcy_zabiegu VALUES (1, 23)
 
 --2.
-INSERT INTO wykonawcy_zabiegu VALUES (2,  2)
-INSERT INTO wykonawcy_zabiegu VALUES (2,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (2, 2)
+INSERT INTO wykonawcy_zabiegu VALUES (2, 23)
 
 --3.
-INSERT INTO wykonawcy_zabiegu VALUES (3,  19)
+INSERT INTO wykonawcy_zabiegu VALUES (3, 19)
 
 --4.
-INSERT INTO wykonawcy_zabiegu VALUES (4,  28)
-INSERT INTO wykonawcy_zabiegu VALUES (4,  26)
+INSERT INTO wykonawcy_zabiegu VALUES (4, 28)
+INSERT INTO wykonawcy_zabiegu VALUES (4, 26)
 
 --5.
-INSERT INTO wykonawcy_zabiegu VALUES (5,  4)
-INSERT INTO wykonawcy_zabiegu VALUES (5,  21)
-INSERT INTO wykonawcy_zabiegu VALUES (5,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (5, 4)
+INSERT INTO wykonawcy_zabiegu VALUES (5, 21)
+INSERT INTO wykonawcy_zabiegu VALUES (5, 23)
 
 --6.
-INSERT INTO wykonawcy_zabiegu VALUES (6,  9)
-INSERT INTO wykonawcy_zabiegu VALUES (6,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (6, 9)
+INSERT INTO wykonawcy_zabiegu VALUES (6, 23)
 
 
 --7.
-INSERT INTO wykonawcy_zabiegu VALUES (7,  8)
-INSERT INTO wykonawcy_zabiegu VALUES (7,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (7, 8)
+INSERT INTO wykonawcy_zabiegu VALUES (7, 23)
 
 
 --8.
-INSERT INTO wykonawcy_zabiegu VALUES (8,  5)
-INSERT INTO wykonawcy_zabiegu VALUES (8,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (8, 5)
+INSERT INTO wykonawcy_zabiegu VALUES (8, 23)
 
 
 --9.
-INSERT INTO wykonawcy_zabiegu VALUES (9,  10)
-INSERT INTO wykonawcy_zabiegu VALUES (9,  23)
+INSERT INTO wykonawcy_zabiegu VALUES (9, 10)
+INSERT INTO wykonawcy_zabiegu VALUES (9, 23)
 
 
 --10.
@@ -693,7 +692,7 @@ INSERT INTO wykonawcy_zabiegu VALUES (10, 26)
 
 --11.
 INSERT INTO wykonawcy_zabiegu VALUES (11, 2)
-INSERT INTO wykonawcy_zabiegu VALUES (11, 25)
+INSERT INTO wykonawcy_zabiegu VALUES (11, 23)
 
 --12.
 INSERT INTO wykonawcy_zabiegu VALUES (12, 1)
@@ -711,7 +710,7 @@ INSERT INTO wykonawcy_zabiegu VALUES (14, 23)
 
 --15.
 INSERT INTO wykonawcy_zabiegu VALUES (15, 4)
-INSERT INTO wykonawcy_zabiegu VALUES (15, 26)
+INSERT INTO wykonawcy_zabiegu VALUES (15, 23)
 
 --16.
 INSERT INTO wykonawcy_zabiegu VALUES (16, 9)
@@ -774,107 +773,266 @@ GO
 --	################ BADANIA ################# -- (90)
 
 
-/* 1*/INSERT INTO badania VALUES (1,  '2017-08-10 12:00:00',   0, N'Badanie krwi pod kątem zmian onkologicznych.',         NULL)
-/* 2*/INSERT INTO badania VALUES (1,  '2017-08-16 12:00:00',   0, N'Prześwietlenie klatki piersiowej - płuc.',             1)
-/* 3*/INSERT INTO badania VALUES (1,  '2017-08-18 12:00:00',   0, N'Bronchoskopia płuc.',                                  2)
-/* 4*/INSERT INTO badania VALUES (1,  '2018-04-23 16:30:00',   0, N'Prześwietlenie klatki piersiowej - płuc.',             NULL)
-/* 5*/INSERT INTO badania VALUES (1,  '2012-09-28 08:15:00',   0, N'Badanie wycinka z prawej ręki.',                       NULL)
-/* 6*/INSERT INTO badania VALUES (2,  '2016-12-01 10:20:00', 400, N'Pomiar soczewki.',                                     NULL)
-/* 7*/INSERT INTO badania VALUES (3,  '2007-06-04 13:05:00',   0, N'Echo serca.',                                          NULL)
-/* 8*/INSERT INTO badania VALUES (3,  '2007-06-12 13:05:00',   0, N'EKG.',                                                 7)
-/* 9*/INSERT INTO badania VALUES (5,  '2008-12-09 09:57:00',   0, N'Prześwietlenie odcinka szyjnego - przełyk.',           NULL)
-/*10*/INSERT INTO badania VALUES (6,  '2017-08-10 15:30:00',   0, N'Badanie wycinka znamienia - twarz.',                   NULL)
-/*11*/INSERT INTO badania VALUES (6,  '2017-08-15 15:30:00',   0, N'Ponownienie badanie wycinka znamienia.',               10)
-/*12*/INSERT INTO badania VALUES (6,  '2005-06-02 17:00:00',   0, N'Zmierzenie ciśnienie dna oka.',                        NULL)
-/*13*/INSERT INTO badania VALUES (6,  '2008-02-09 14:10:00',   0, N'Prześwietlenie ramienia.',                             NULL)
-/*14*/INSERT INTO badania VALUES (7,  '2016-04-04 11:10:00',   0, N'Prześwietlenie czaszki.',                              NULL)
-/*15*/INSERT INTO badania VALUES (7,  '2016-04-04 11:20:00',   0, N'Badnie krwi na rezonans.',                             14)
-/*16*/INSERT INTO badania VALUES (7,  '2016-04-04 12:10:00',   0, N'Rezonans magnetyczny czaszki z kontrastem.',           15)
-/*17*/INSERT INTO badania VALUES (7,  '2005-04-03 12:20:00', 800, N'Badanie wycinka - lewa noga.',                         NULL)
-/*18*/INSERT INTO badania VALUES (8,  '2003-11-02 18:05:00',   0, N'Badanie dna oka.',                                     NULL)
-/*19*/INSERT INTO badania VALUES (8,  '2003-11-04 18:05:00',   0, N'Prześwietlenie gałki ocznej.',                         18)
-/*20*/INSERT INTO badania VALUES (9,  '2006-02-03 14:55:00', 100, N'Badanie ciśnienia krwi.',                              NULL)
-/*21*/INSERT INTO badania VALUES (10, '2016-03-03 08:00:00', 200, N'Prześwietlenie klatki piersiowej.',                    NULL)
-/*22*/INSERT INTO badania VALUES (10, '2016-03-04 08:00:00',   0, N'Badanie krwii na rezonans.',                           21)
-/*23*/INSERT INTO badania VALUES (10, '2016-03-08 08:00:00',   0, N'Rezonans magnetyczny klatki piersiowej z kontrastem.', 22)
-/*24*/INSERT INTO badania VALUES (11, '2018-03-01 10:40:00', 300, N'Badanie krwi pod kątem zmian onkologicznych.',         NULL)
-/*25*/INSERT INTO badania VALUES (11, '2018-03-02 10:40:00', 700, N'Rentgen odcinka szyjnego.',                            24)
-/*26*/INSERT INTO badania VALUES (12, '2004-05-16 13:05:00',   0, N'Badnie ciśnienia gałki ocznej.',                       NULL)
-/*27*/INSERT INTO badania VALUES (12, '2015-07-17 14:02:00',   0, N'EKG.',                                                 NULL)
-/*28*/INSERT INTO badania VALUES (12, '2015-07-20 14:02:00',   0, N'Rezonans serca.',                                      27)
-/*29*/INSERT INTO badania VALUES (12, '2015-07-23 14:02:00',   0, N'Pomiar ciśnienia tętniczego.',                         28)
-/*30*/INSERT INTO badania VALUES (14, '2014-11-26 07:00:00',   0, N'Prześwietlenie czaszki.',                              NULL)
-/*31*/INSERT INTO badania VALUES (15, '2008-12-05 12:30:00',   0, N'Badanie krwi pod kątem zmian onkologicznych.',         NULL)
-/*32*/INSERT INTO badania VALUES (15, '2008-12-10 12:30:00', 300, N'Prześwietlenie czaszki.',                              31)
-/*33*/INSERT INTO badania VALUES (16, '2004-06-30 13:40:00', 800, N'Badanie krwi pod kątem zmian onkologicznych.',         NULL)
-/*34*/INSERT INTO badania VALUES (16, '2004-06-30 13:40:00', 200, N'Prześwietlenie odcinka szyjnego.',                     33)
-/*35*/INSERT INTO badania VALUES (17, '2019-08-28 14:20:00',   0, N'EKG.',                                                 NULL)
-/*36*/INSERT INTO badania VALUES (17, '2019-09-02 14:20:00',   0, N'Badanie krwii - nieprawidłowości.',                    35)
-/*37*/INSERT INTO badania VALUES (17, '2019-09-08 14:20:00',   0, N'Echo serca.',                                          36)
-/*38*/INSERT INTO badania VALUES (17, '2019-09-10 14:20:00', 300, N'Próba wysiłkowa.',                                     37)
-/*39*/INSERT INTO badania VALUES (17, '2019-09-22 14:20:00',   0, N'Ponowne badnie krwii.',                                38)
-/*40*/INSERT INTO badania VALUES (18, '2008-01-04 12:15:00',   0, N'Bronchoskopia płuc.',                                  NULL)
-/*41*/INSERT INTO badania VALUES (18, '2008-01-12 12:15:00', 200, N'Prześwietlenie klatki piersiowej.',                    40)
-/*42*/INSERT INTO badania VALUES (20, '2010-11-09 08:20:00',   0, N'Pomiar masy ciała i wzrostu i obwodu pasa.',           NULL)
-/*43*/INSERT INTO badania VALUES (24, '2016-08-03 16:30:00', 400, N'Badanie fizykalne jamy ustnej i gardła.',              NULL)
-/*44*/INSERT INTO badania VALUES (24, '2007-09-23 19:05:00', 300, N'Badanie fizykalne węzłów chłonnych.',                  NULL)
-/*45*/INSERT INTO badania VALUES (25, '2016-03-17 08:10:00',   0, N'Kontrola okulistyczna.',                               NULL)
-/*46*/INSERT INTO badania VALUES (26, '2012-06-11 11:25:00',   0, N'RTG klatki piersiowej.',                               NULL)
-/*47*/INSERT INTO badania VALUES (27, '2012-06-06 12:05:00', 500, N'Badanie poziomu cholesterolu.',                        NULL)
-/*48*/INSERT INTO badania VALUES (27, '2012-06-07 11:55:00',   0, N'Badanie poziomu glukozy w surowicy.',                  47)
-/*49*/INSERT INTO badania VALUES (27, '2012-07-01 10:55:00', 300, N'Pomiar elektrolitów.',                                 48)
-/*50*/INSERT INTO badania VALUES (28, '2006-03-14 18:45:00',   0, N'Morfologia krwii.',                                    NULL)
-/*51*/INSERT INTO badania VALUES (28, '2014-07-12 15:15:00',   0, N'Pomiar ciśnienia tętniczego.',                         NULL)
-/*52*/INSERT INTO badania VALUES (29, '2009-08-28 18:05:00',   0, N'Ocena ryzyka sercowo-naczyniowego',                    NULL)
-/*53*/INSERT INTO badania VALUES (30, '2007-03-11 14:00:00',   0, N'Badanie moczu.',                                       NULL)
-/*54*/INSERT INTO badania VALUES (30, '2007-03-20 18:55:00',   0, N'OB.',                                                  53)
-/*55*/INSERT INTO badania VALUES (31, '2017-06-25 12:05:00',   0, N'RTG klatki piersiowej.',                               NULL)
-/*56*/INSERT INTO badania VALUES (34, '2005-08-17 12:00:00',   0, N'Badanie fizykalne skóry.',                             NULL)
-/*57*/INSERT INTO badania VALUES (34, '2005-08-18 10:20:00',   0, N'Badanie fizykalne jamy ustnej i gardła.',              56)
-/*58*/INSERT INTO badania VALUES (34, '2005-08-22 16:45:00',   0, N'Badanie fizykalne węzłów chłonnych.',                  57)
-/*59*/INSERT INTO badania VALUES (34, '2005-09-23 18:50:00', 200, N'Badanie fizykalne tarczycy.',                          58)
-/*60*/INSERT INTO badania VALUES (36, '2008-06-13 08:15:00', 200, N'Morfologia krwii.',                                    NULL)
-/*61*/INSERT INTO badania VALUES (36, '2016-08-22 17:30:00',   0, N'Pomiar elektrolitów.',                                 NULL)
-/*62*/INSERT INTO badania VALUES (36, '2005-12-05 11:10:00',   0, N'Lipidogram.',                                          NULL)
-/*63*/INSERT INTO badania VALUES (37, '2014-03-27 10:00:00',   0, N'Badanie poziomu cholesterolu.',                        NULL)
-/*64*/INSERT INTO badania VALUES (37, '2016-05-20 08:35:00',   0, N'Badanie poziomu glukozy w surowicy.',                  NULL)
-/*65*/INSERT INTO badania VALUES (39, '2006-02-20 13:35:00',   0, N'Pomiar ciśnienia tętniczego.',                         NULL)
-/*66*/INSERT INTO badania VALUES (40, '2016-02-06 16:00:00',   0, N'USG jamy brzusznej.',                                  NULL)
-/*67*/INSERT INTO badania VALUES (43, '2010-07-01 09:20:00',   0, N'Kontrola okulistyczna.',                               NULL)
-/*68*/INSERT INTO badania VALUES (43, '2005-08-19 08:05:00', 600, N'Morfologia krwii.',                                    NULL)
-/*69*/INSERT INTO badania VALUES (43, '2006-12-31 18:10:00', 200, N'Pomiar masy ciała i wzrostu i obwodu pasa.',           NULL)
-/*70*/INSERT INTO badania VALUES (44, '2019-04-23 15:40:00', 700, N'Lipidogram.',                                          NULL)
-/*71*/INSERT INTO badania VALUES (45, '2003-02-14 11:00:00',   0, N'Pomiar elektrolitów.',                                 NULL)
-/*72*/INSERT INTO badania VALUES (45, '2017-02-23 12:10:00',   0, N'Pomiar ciśnienia tętniczego.',                         NULL)
-/*73*/INSERT INTO badania VALUES (47, '2007-02-20 19:25:00', 600, N'Badanie fizykalne tarczycy.',                          NULL)
-/*74*/INSERT INTO badania VALUES (47, '2015-07-13 14:05:00',   0, N'OB.',                                                  NULL)
-/*75*/INSERT INTO badania VALUES (47, '2010-08-19 09:40:00', 900, N'Pomiar elektrolitów.',                                 NULL)
-/*76*/INSERT INTO badania VALUES (47, '2018-05-11 15:50:00',   0, N'Morfologia krwii.',                                    NULL)
-/*77*/INSERT INTO badania VALUES (48, '2018-05-17 08:45:00',   0, N'Badanie moczu.',                                       NULL)
-/*78*/INSERT INTO badania VALUES (48, '2015-11-27 18:30:00',   0, N'Ocena ryzyka sercowo-naczyniowego.',                   NULL)
-/*79*/INSERT INTO badania VALUES (49, '2019-10-01 09:50:00',   0, N'RTG klatki piersiowej.',                               NULL)
-/*80*/INSERT INTO badania VALUES (50, '2018-03-12 17:10:00',   0, N'Pomiar ciśnienia tętniczego.',                         NULL)
-/*81*/INSERT INTO badania VALUES (51, '2007-12-28 17:25:00', 400, N'Badanie poziomu glukozy w surowicy.',                  NULL)
-/*82*/INSERT INTO badania VALUES (51, '2005-01-11 12:25:00', 100, N'Badanie poziomu cholesterolu.',                        NULL)
-/*83*/INSERT INTO badania VALUES (52, '2017-06-05 17:15:00',   0, N'Badanie fizykalne skóry.',                             NULL)
-/*84*/INSERT INTO badania VALUES (52, '2009-08-21 08:30:00',   0, N'Badanie fizykalne jamy ustnej i gardła.',              NULL)
-/*85*/INSERT INTO badania VALUES (52, '2014-03-20 11:45:00',   0, N'Badanie fizykalne tarczycy.',                          NULL)
-/*86*/INSERT INTO badania VALUES (53, '2006-11-06 09:30:00',   0, N'Badanie fizykalne węzłów chłonnych.',                  NULL)
-/*87*/INSERT INTO badania VALUES (54, '2011-07-02 10:10:00',   0, N'RTG klatki piersiowej.',                               NULL)
-/*88*/INSERT INTO badania VALUES (57, '2018-09-28 16:35:00', 700, N'Kontrola okulistyczna.',                               NULL)
-/*89*/INSERT INTO badania VALUES (58, '2017-07-11 12:35:00',   0, N'USG jamy brzusznej.',                                  NULL)
-/*90*/INSERT INTO badania VALUES (60, '2018-02-27 19:35:00',   0, N'Lipidogram.',                                          NULL)
+/* 1*/INSERT INTO badania VALUES (1, '2017-08-10 12:00:00', 0, N'Badanie krwi pod kątem zmian onkologicznych.', NULL)
+/* 2*/INSERT INTO badania VALUES (1, '2017-08-16 12:00:00', 0, N'Prześwietlenie klatki piersiowej - płuc.', 1)
+/* 3*/INSERT INTO badania VALUES (1, '2017-08-18 12:00:00', 0, N'Bronchoskopia płuc.', 2)
+/* 4*/INSERT INTO badania VALUES (1, '2018-04-23 16:30:00', 0, N'Prześwietlenie klatki piersiowej - płuc.', NULL)
+/* 5*/INSERT INTO badania VALUES (1, '2012-09-28 08:15:00', 0, N'Badanie wycinka z prawej ręki.', NULL)
+/* 6*/INSERT INTO badania VALUES (2, '2016-12-01 10:20:00', 400, N'Pomiar soczewki.', NULL)
+/* 7*/INSERT INTO badania VALUES (3, '2007-06-04 13:05:00', 0, N'Echo serca.', NULL)
+/* 8*/INSERT INTO badania VALUES (3, '2007-06-12 13:05:00', 0, N'EKG.', 7)
+/* 9*/INSERT INTO badania VALUES (5, '2008-12-09 09:57:00', 0, N'Prześwietlenie odcinka szyjnego - przełyk.', NULL)
+/*10*/INSERT INTO badania VALUES (6, '2017-08-10 15:30:00', 0, N'Badanie wycinka znamienia - twarz.', NULL)
+/*11*/INSERT INTO badania VALUES (6, '2017-08-15 15:30:00', 0, N'Ponownienie badanie wycinka znamienia.', 10)
+/*12*/INSERT INTO badania VALUES (6, '2005-06-02 17:00:00', 0, N'Zmierzenie ciśnienie dna oka.', NULL)
+/*13*/INSERT INTO badania VALUES (6, '2008-02-09 14:10:00', 0, N'Prześwietlenie ramienia.', NULL)
+/*14*/INSERT INTO badania VALUES (7, '2016-04-04 11:10:00', 0, N'Prześwietlenie czaszki.', NULL)
+/*15*/INSERT INTO badania VALUES (7, '2016-04-04 11:20:00', 0, N'Badnie krwi na rezonans.', 14)
+/*16*/INSERT INTO badania VALUES (7, '2016-04-04 12:10:00', 0, N'Rezonans magnetyczny czaszki z kontrastem.', 15)
+/*17*/INSERT INTO badania VALUES (7, '2005-04-03 12:20:00', 800, N'Badanie wycinka - lewa noga.', NULL)
+/*18*/INSERT INTO badania VALUES (8, '2003-11-02 18:05:00', 0, N'Badanie dna oka.', NULL)
+/*19*/INSERT INTO badania VALUES (8, '2003-11-04 18:05:00', 0, N'Prześwietlenie gałki ocznej.', 18)
+/*20*/INSERT INTO badania VALUES (9, '2006-02-03 14:55:00', 100, N'Badanie ciśnienia krwi.', NULL)
+/*21*/INSERT INTO badania VALUES (10, '2016-03-03 08:00:00', 200, N'Prześwietlenie klatki piersiowej.', NULL)
+/*22*/INSERT INTO badania VALUES (10, '2016-03-04 08:00:00', 0, N'Badanie krwii na rezonans.', 21)
+/*23*/INSERT INTO badania VALUES (10, '2016-03-08 08:00:00', 0, N'Rezonans magnetyczny klatki piersiowej z kontrastem.', 22)
+/*24*/INSERT INTO badania VALUES (11, '2018-03-01 10:40:00', 300, N'Badanie krwi pod kątem zmian onkologicznych.', NULL)
+/*25*/INSERT INTO badania VALUES (11, '2018-03-02 10:40:00', 700, N'Rentgen odcinka szyjnego.', 24)
+/*26*/INSERT INTO badania VALUES (12, '2004-05-16 13:05:00', 0, N'Badnie ciśnienia gałki ocznej.', NULL)
+/*27*/INSERT INTO badania VALUES (12, '2015-07-17 14:02:00', 0, N'EKG.', NULL)
+/*28*/INSERT INTO badania VALUES (12, '2015-07-20 14:02:00', 0, N'Rezonans serca.', 27)
+/*29*/INSERT INTO badania VALUES (12, '2015-07-23 14:02:00', 0, N'Pomiar ciśnienia tętniczego.', 28)
+/*30*/INSERT INTO badania VALUES (14, '2014-11-26 07:00:00', 0, N'Prześwietlenie czaszki.', NULL)
+/*31*/INSERT INTO badania VALUES (15, '2008-12-05 12:30:00', 0, N'Badanie krwi pod kątem zmian onkologicznych.', NULL)
+/*32*/INSERT INTO badania VALUES (15, '2008-12-10 12:30:00', 300, N'Prześwietlenie czaszki.', 31)
+/*33*/INSERT INTO badania VALUES (16, '2004-06-30 13:40:00', 800, N'Badanie krwi pod kątem zmian onkologicznych.', NULL)
+/*34*/INSERT INTO badania VALUES (16, '2004-06-30 13:40:00', 200, N'Prześwietlenie odcinka szyjnego.', 33)
+/*35*/INSERT INTO badania VALUES (17, '2019-08-28 14:20:00', 0, N'EKG.', NULL)
+/*36*/INSERT INTO badania VALUES (17, '2019-09-02 14:20:00', 0, N'Badanie krwii - nieprawidłowości.', 35)
+/*37*/INSERT INTO badania VALUES (17, '2019-09-08 14:20:00', 0, N'Echo serca.', 36)
+/*38*/INSERT INTO badania VALUES (17, '2019-09-10 14:20:00', 300, N'Próba wysiłkowa.', 37)
+/*39*/INSERT INTO badania VALUES (17, '2019-09-22 14:20:00', 0, N'Ponowne badnie krwii.', 38)
+/*40*/INSERT INTO badania VALUES (18, '2008-01-04 12:15:00', 0, N'Bronchoskopia płuc.', NULL)
+/*41*/INSERT INTO badania VALUES (18, '2008-01-12 12:15:00', 200, N'Prześwietlenie klatki piersiowej.', 40)
+/*42*/INSERT INTO badania VALUES (20, '2010-11-09 08:20:00', 0, N'Pomiar masy ciała i wzrostu i obwodu pasa.', NULL)
+/*43*/INSERT INTO badania VALUES (24, '2016-08-03 16:30:00', 400, N'Badanie fizykalne jamy ustnej i gardła.', NULL)
+/*44*/INSERT INTO badania VALUES (24, '2007-09-23 19:05:00', 300, N'Badanie fizykalne węzłów chłonnych.', NULL)
+/*45*/INSERT INTO badania VALUES (25, '2016-03-17 08:10:00', 0, N'Kontrola okulistyczna.', NULL)
+/*46*/INSERT INTO badania VALUES (26, '2012-06-11 11:25:00', 0, N'RTG klatki piersiowej.', NULL)
+/*47*/INSERT INTO badania VALUES (27, '2012-06-06 12:05:00', 500, N'Badanie poziomu cholesterolu.', NULL)
+/*48*/INSERT INTO badania VALUES (27, '2012-06-07 11:55:00', 0, N'Badanie poziomu glukozy w surowicy.', 47)
+/*49*/INSERT INTO badania VALUES (27, '2012-07-01 10:55:00', 300, N'Pomiar elektrolitów.', 48)
+/*50*/INSERT INTO badania VALUES (28, '2006-03-14 18:45:00', 0, N'Morfologia krwii.', NULL)
+/*51*/INSERT INTO badania VALUES (28, '2014-07-12 15:15:00', 0, N'Pomiar ciśnienia tętniczego.', NULL)
+/*52*/INSERT INTO badania VALUES (29, '2009-08-28 18:05:00', 0, N'Ocena ryzyka sercowo-naczyniowego', NULL)
+/*53*/INSERT INTO badania VALUES (30, '2007-03-11 14:00:00', 0, N'Badanie moczu.', NULL)
+/*54*/INSERT INTO badania VALUES (30, '2007-03-20 18:55:00', 0, N'OB.', 53)
+/*55*/INSERT INTO badania VALUES (31, '2017-06-25 12:05:00', 0, N'RTG klatki piersiowej.', NULL)
+/*56*/INSERT INTO badania VALUES (34, '2005-08-17 12:00:00', 0, N'Badanie fizykalne skóry.', NULL)
+/*57*/INSERT INTO badania VALUES (34, '2005-08-18 10:20:00', 0, N'Badanie fizykalne jamy ustnej i gardła.', 56)
+/*58*/INSERT INTO badania VALUES (34, '2005-08-22 16:45:00', 0, N'Badanie fizykalne węzłów chłonnych.', 57)
+/*59*/INSERT INTO badania VALUES (34, '2005-09-23 18:50:00', 200, N'Badanie fizykalne tarczycy.', 58)
+/*60*/INSERT INTO badania VALUES (36, '2008-06-13 08:15:00', 200, N'Morfologia krwii.', NULL)
+/*61*/INSERT INTO badania VALUES (36, '2016-08-22 17:30:00', 0, N'Pomiar elektrolitów.', NULL)
+/*62*/INSERT INTO badania VALUES (36, '2005-12-05 11:10:00', 0, N'Lipidogram.', NULL)
+/*63*/INSERT INTO badania VALUES (37, '2014-03-27 10:00:00', 0, N'Badanie poziomu cholesterolu.', NULL)
+/*64*/INSERT INTO badania VALUES (37, '2016-05-20 08:35:00', 0, N'Badanie poziomu glukozy w surowicy.', NULL)
+/*65*/INSERT INTO badania VALUES (39, '2006-02-20 13:35:00', 0, N'Pomiar ciśnienia tętniczego.', NULL)
+/*66*/INSERT INTO badania VALUES (40, '2016-02-06 16:00:00', 0, N'USG jamy brzusznej.', NULL)
+/*67*/INSERT INTO badania VALUES (43, '2010-07-01 09:20:00', 0, N'Kontrola okulistyczna.', NULL)
+/*68*/INSERT INTO badania VALUES (43, '2005-08-19 08:05:00', 600, N'Morfologia krwii.', NULL)
+/*69*/INSERT INTO badania VALUES (43, '2006-12-31 18:10:00', 200, N'Pomiar masy ciała i wzrostu i obwodu pasa.', NULL)
+/*70*/INSERT INTO badania VALUES (44, '2019-04-23 15:40:00', 700, N'Lipidogram.', NULL)
+/*71*/INSERT INTO badania VALUES (45, '2003-02-14 11:00:00', 0, N'Pomiar elektrolitów.', NULL)
+/*72*/INSERT INTO badania VALUES (45, '2017-02-23 12:10:00', 0, N'Pomiar ciśnienia tętniczego.', NULL)
+/*73*/INSERT INTO badania VALUES (47, '2007-02-20 19:25:00', 600, N'Badanie fizykalne tarczycy.', NULL)
+/*74*/INSERT INTO badania VALUES (47, '2015-07-13 14:05:00', 0, N'OB.', NULL)
+/*75*/INSERT INTO badania VALUES (47, '2010-08-19 09:40:00', 900, N'Pomiar elektrolitów.', NULL)
+/*76*/INSERT INTO badania VALUES (47, '2018-05-11 15:50:00', 0, N'Morfologia krwii.', NULL)
+/*77*/INSERT INTO badania VALUES (48, '2018-05-17 08:45:00', 0, N'Badanie moczu.', NULL)
+/*78*/INSERT INTO badania VALUES (48, '2015-11-27 18:30:00', 0, N'Ocena ryzyka sercowo-naczyniowego.', NULL)
+/*79*/INSERT INTO badania VALUES (49, '2019-10-01 09:50:00', 0, N'RTG klatki piersiowej.', NULL)
+/*80*/INSERT INTO badania VALUES (50, '2018-03-12 17:10:00', 0, N'Pomiar ciśnienia tętniczego.', NULL)
+/*81*/INSERT INTO badania VALUES (51, '2007-12-28 17:25:00', 400, N'Badanie poziomu glukozy w surowicy.', NULL)
+/*82*/INSERT INTO badania VALUES (51, '2005-01-11 12:25:00', 100, N'Badanie poziomu cholesterolu.', NULL)
+/*83*/INSERT INTO badania VALUES (52, '2017-06-05 17:15:00', 0, N'Badanie fizykalne skóry.', NULL)
+/*84*/INSERT INTO badania VALUES (52, '2009-08-21 08:30:00', 0, N'Badanie fizykalne jamy ustnej i gardła.', NULL)
+/*85*/INSERT INTO badania VALUES (52, '2014-03-20 11:45:00', 0, N'Badanie fizykalne tarczycy.', NULL)
+/*86*/INSERT INTO badania VALUES (53, '2006-11-06 09:30:00', 0, N'Badanie fizykalne węzłów chłonnych.', NULL)
+/*87*/INSERT INTO badania VALUES (54, '2011-07-02 10:10:00', 0, N'RTG klatki piersiowej.', NULL)
+/*88*/INSERT INTO badania VALUES (57, '2018-09-28 16:35:00', 700, N'Kontrola okulistyczna.', NULL)
+/*89*/INSERT INTO badania VALUES (58, '2017-07-11 12:35:00', 0, N'USG jamy brzusznej.', NULL)
+/*90*/INSERT INTO badania VALUES (60, '2018-02-27 19:35:00', 0, N'Lipidogram.', NULL)
 GO
 
 
 
 --#################################################################################################################--
 --#																												  #--
---#													    ZAPYTANIA  												  #--
+--#							    ZAPYTANIA - 13 DZIELENIE, 14 REKURSYJNE, 15 ROZMYTE      						  #--
 --#																												  #--
 --#################################################################################################################--
 
+-- 4.   
 
+-- 5.   Podać maksymalne kwoty dla specjalizacji pracowników na każdym oddziale posortować rosnąco
+
+SELECT O.nazwa_oddzialu, max(placa_max) AS  N'najwyższa możliwa pensja'
+FROM lekarze L, oddzialy O, profesje_lekarzy PL, specjalizacje S
+WHERE L.oddzial = O.id_oddzialu
+  AND L.id_lekarza = PL.lekarz
+  AND PL.specjalizacja = S.id_spec
+GROUP BY O.nazwa_oddzialu
+ORDER BY N'najwyższa możliwa pensja'
+
+-- 6.   Podać pełny adres oraz sumę wydatków pacjenta z największą sumą wydatków za zabiegi
+
+SELECT TOP 1 M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu, sum(Z.koszt) AS kwota
+FROM pacjeci P
+INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
+INNER JOIN adresy A ON P.adres = A.id_adresu
+INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
+GROUP BY M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu
+ORDER BY KWOTA DESC
+
+-- 7.   Pogrupować średnie zarobki lekarzy mieszkających w każdym województwie, zatrudnionych w pierwszą sobotą
+--      miesiąca. Posortować po kwocie malejąco
+
+SELECT M.wojewodztwo, avg(pensja) as N'średnia pensja wojewódzka'
+FROM lekarze L, adresy A, miasta M
+WHERE L.adres = A.id_adresu AND A.miasto = M.kod_pocztowy AND
+      DATEPART(WEEKDAY, L.zatrudniony) = 7 AND DATEPART(DAY, L.zatrudniony) < 8
+GROUP BY M.wojewodztwo
+ORDER BY N'średnia pensja wojewódzka' DESC
+
+-- 8.   Porównać wydatki kobiet i mężczyżn na badania i zabiegi w sierpniu 2017 roku
+
+SELECT sum(iif(right(imie, 1) = 'a', koszt, 0)) AS 'Panie',
+       sum(iif(right(imie, 1) <> 'a', koszt, 0)) AS 'Panowie'
+FROM (SELECT koszt, imie, rozpoczecie
+      FROM zabiegi, pacjeci
+      WHERE pacjent = id_pacjenta
+      UNION ALL
+      SELECT koszt, imie, data_badania
+      FROM badania, pacjeci
+      WHERE pacjent = id_pacjenta) AS ZSBS(koszt, imie, termin)
+WHERE datepart(YEAR, termin) = 2017 AND datepart(MONTH, termin) = 8
+
+
+-- 9.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazawiska lekarzy, którzy ich operowali,
+--      a mieszkają w tym samym mieście. Uwzględnić zabiegi przed 2008 rokiem
+
+SELECT DISTINCT concat(P.imie, ' ', P.nazwisko) AS 'Pacjent',
+                concat(L.imie, ' ', L.nazwisko) AS 'Lekarz',
+                M.nazwa
+FROM pacjeci P
+INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
+INNER JOIN wykonawcy_zabiegu WZ ON Z.id_zabiegu = WZ.zabieg
+INNER JOIN lekarze L ON WZ.lekarz = L.id_lekarza
+INNER JOIN adresy AL ON L.adres = AL.id_adresu
+INNER JOIN adresy AP ON AP.id_adresu = P.adres
+INNER JOIN miasta M ON AP.miasto = M.kod_pocztowy
+WHERE AP.miasto = AL.miasto
+  AND DATEPART(YEAR, Z.rozpoczecie) < 2008
+ORDER BY M.nazwa
+
+-- 10.  Zliczyć ilość każdej biegłości dla wszystkich lekarzy szpitala niebędących lekarzami medycyny pracy. W przypadku
+--      wielu specjalizacji zliczyć tylko tę, w której lekarz jest najbieglejszy
+
+SELECT sum(iif(bieglosc = 'wysoka', 1, 0))   AS N'Wysoka',
+       sum(iif(bieglosc = N'średnia', 1, 0)) AS N'Średnia',
+       sum(iif(bieglosc = 'niska', 1, 0))    AS N'Niska'
+FROM profesje_lekarzy PL1
+WHERE iif(PL1.bieglosc = 'wysoka', 3, iif(PL1.bieglosc = N'średnia', 2, 1)) = (
+    SELECT max(iif(PL2.bieglosc = 'wysoka', 3, iif(PL2.bieglosc = N'średnia', 2, 1)))
+    FROM profesje_lekarzy PL2
+    WHERE PL1.lekarz = PL2.lekarz
+)
+
+-- 11.  Podać minimalną płacę z mniej płatnej specjalizacji i maksymalną płacę z najbardziej płatnej specjalizacji
+--      lekarzy posiadających więcej niż jedną profesję. Przy każdej parze liczb wyświetlić ich imie i nazwisko jako
+--      jeden ciąg znaków oraz podać ich ID.
+
+SELECT min(S.placa_min) AS min, max(S.placa_max) AS max, (L.imie + ' ' + L.nazwisko) AS nazwa, L.id_lekarza
+FROM specjalizacje S
+INNER JOIN profesje_lekarzy PL ON S.id_spec = PL.specjalizacja
+INNER JOIN lekarze L ON PL.lekarz = L.id_lekarza
+GROUP BY L.imie, L.nazwisko, L.id_lekarza
+HAVING COUNT(*) > 1
+ORDER BY max DESC
+
+-- 12.  Wypisać imiona, nazwiska oraz liczbę preprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
+--      3 zabiegi i lekarze wykonujący te zabiegi nie byli chirurgami. Posortować po liczbie zabiegów malejąco
+
+SELECT P.imie, P.nazwisko, count(*) AS N'liczba zabiegów'
+FROM pacjeci P
+INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
+WHERE id_zabiegu IN
+      (
+          SELECT zabieg
+          FROM wykonawcy_zabiegu
+          INNER JOIN lekarze L ON wykonawcy_zabiegu.lekarz = L.id_lekarza
+          INNER JOIN profesje_lekarzy PL ON L.id_lekarza = PL.lekarz
+          WHERE left(PL.specjalizacja, 2) <> 'CH'
+      )
+GROUP BY P.imie, P.nazwisko
+HAVING count(*) > 2
+ORDER BY N'liczba zabiegów' DESC
+
+
+-- 13.  (DZIELENIE) Podać imiona, nazwiska i ID tych anestezjologów, którzy byli obecni podczas wszystkich zabiegów
+--      wykonywanych przez chirurga dowolnej specjalizacji innej niż plastycznej.
+
+SELECT imie, nazwisko, id_lekarza
+FROM lekarze L1, profesje_lekarzy PL1
+WHERE id_lekarza = lekarz
+  AND specjalizacja = 'AN_EST'
+  AND NOT EXISTS
+    (
+        SELECT *
+        FROM wykonawcy_zabiegu WZ, lekarze L, profesje_lekarzy PL
+        WHERE WZ.lekarz = L.id_lekarza
+          AND L.id_lekarza = PL.lekarz
+          AND left(PL.specjalizacja, 2) = 'CH'
+          AND right(PL.specjalizacja, 3) <> 'PLA'
+          AND NOT EXISTS
+            (
+                SELECT *
+                FROM wykonawcy_zabiegu
+                WHERE lekarz = L1.id_lekarza
+                  AND zabieg = WZ.zabieg
+            )
+    )
+
+
+-- 14.  (REKURENCJA) Wypisać ilość badań, które pociągnęly za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
+--      Pogrupować po ilości pociągniętych za sobą badań.
+
+
+WITH B1(id_badania, poprzednie, poziom) AS
+         (SELECT id_badania, poprzednie, 1 AS poziom
+          FROM badania
+          UNION ALL
+          (SELECT B2.id_badania, B1.poprzednie, poziom + 1
+           FROM badania B2, B1
+           WHERE B2.poprzednie = B1.id_badania)),
+     B2(id_badania, poziom) AS
+         (SELECT DISTINCT id_badania, max(poziom) AS N'pociągnięte badania'
+          FROM B1 B
+          WHERE poziom BETWEEN 2 AND 3
+            AND poprzednie IS NOT NULL
+            AND NOT exists(SELECT id_badania FROM B1 WHERE poprzednie = B.id_badania)
+          GROUP BY id_badania)
+SELECT poziom AS N'długość serii', count(*) AS N'ilość'
+FROM B2
+GROUP BY poziom
+
+-- 15.  (NIEPRECYZYJNE) Podać chirurgów zarabiających dużo.
+
+-- CREATE FUNCTION SURGEON_HIGH_SALARY(@kwota MONEY, @a MONEY, @b MONEY) RETURNS INT AS
+-- BEGIN
+-- 
+-- END
 
 
 --#################################################################################################################--
@@ -882,8 +1040,6 @@ GO
 --#										       PROCEDURY FUNKCJE WYZWALACZE    						              #--
 --#																												  #--
 --#################################################################################################################--
-
-
 
 
 --#################################################################################################################--
