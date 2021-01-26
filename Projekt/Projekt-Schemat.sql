@@ -743,9 +743,11 @@ INSERT INTO wykonawcy_zabiegu VALUES (23, 15)
 
 --24.
 INSERT INTO wykonawcy_zabiegu VALUES (24, 20)
+INSERT INTO wykonawcy_zabiegu VALUES (24, 15)
 
 --25.
 INSERT INTO wykonawcy_zabiegu VALUES (25, 20)
+INSERT INTO wykonawcy_zabiegu VALUES (25, 19)
 
 --26.
 INSERT INTO wykonawcy_zabiegu VALUES (26, 1)
@@ -868,12 +870,32 @@ GO
 
 --#################################################################################################################--
 --#																												  #--
---#							    ZAPYTANIA - 13 DZIELENIE, 14 REKURSYJNE, 15 ROZMYTE      						  #--
+--#							            ZAPYTANIA - 14 DZIELENIE, 15 REKURSYJNE      						      #--
 --#																												  #--
 --#################################################################################################################--
 
--- 1.   Podać łączne obciążenie finansowe szpitala wynikające z konieczności wypłaty pensji wszystkim pracownikom
+
+
+-- 1.   Podać 3 pierwsz nazwy miast, w których mieszkają pacjęci, którzy wydali najwięcej na zabiegi
+
+
+
+
+SELECT TOP 3 nazwa AS 'miasta z pacjenatami o największych wydatkach na zabiegi'
+FROM zabiegi
+INNER JOIN pacjeci P ON zabiegi.pacjent = P.id_pacjenta
+INNER JOIN adresy A ON P.adres = A.id_adresu
+INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
+GROUP BY pacjent, nazwa
+ORDER BY sum(koszt) DESC
+GO
+
+
+
+-- 2.   Podać łączne obciążenie finansowe szpitala wynikające z konieczności wypłaty pensji wszystkim pracownikom
 --      w roku 2010 po odliczeniu opłat za badania i zabiegi
+
+
 
 SELECT (SELECT sum(pensja) FROM lekarze WHERE DATEPART(YEAR, zatrudniony) <= 2010) - sum(koszt)
 FROM (SELECT koszt
@@ -884,7 +906,12 @@ FROM (SELECT koszt
       FROM badania, pacjeci
       WHERE pacjent = id_pacjenta AND DATEPART(YEAR, data_badania) = 2010) AS KWOTY(koszt)
 GO
--- 2.   Podać lekarza, którzy wykonał najwięcej płatnych zabiegów w 2017
+
+
+
+-- 3.   Podać lekarza, którzy wykonał najwięcej płatnych zabiegów w 2017
+
+
 
 SELECT TOP 1 id_lekarza, imie, nazwisko, count(*) as N'ilość płatnych zabiegów'
 FROM lekarze
@@ -894,8 +921,13 @@ WHERE koszt > 0 AND datepart(YEAR, rozpoczecie) = 2017
 GROUP BY id_lekarza, imie, nazwisko
 ORDER BY N'ilość płatnych zabiegów' DESC
 GO
--- 3.   Podać imiona i nazwiska pacjentów, którzy mieli wykonany przynajmniej jeden zabieg bez obecności chirurga,
+
+
+
+-- 4.   Podać imiona i nazwiska pacjentów, którzy mieli wykonany przynajmniej jeden zabieg bez obecności chirurga,
 --      a nie mieli wykonanego żadnego badania.
+
+
 
 SELECT imie, nazwisko
 FROM pacjeci
@@ -909,9 +941,14 @@ WHERE id_pacjenta NOT IN (SELECT pacjent FROM badania)
     INNER JOIN profesje_lekarzy PL ON L.id_lekarza = PL.lekarz
     WHERE PL.specjalizacja LIKE 'CH%')
 GO
--- 4.   Podać minimalne zarobki pracowników zatrudnionych w kolejnych latach według roku zatrudnienia. Brane pod uwage
+
+
+
+-- 5.   Podać minimalne zarobki pracowników zatrudnionych w kolejnych latach według roku zatrudnienia. Brane pod uwagę
 --      są tylko lata podczas których zatrudnionych było min 3 pracowników, a minimalna pensja przekracza 6000.
 --      Wyniki posortować malejąco.
+
+
 
 SELECT DATEPART(YEAR, zatrudniony) AS rok, min(pensja) AS N'minimalna pensja'
 FROM lekarze
@@ -919,7 +956,12 @@ GROUP BY DATEPART(YEAR, zatrudniony)
 HAVING COUNT(*) > 2 AND min(pensja) > 6000
 ORDER BY N'minimalna pensja' DESC
 GO
--- 5.   Podać maksymalne kwoty dla specjalizacji pracowników na każdym oddziale posortować rosnąco
+
+
+
+-- 6.   Podać maksymalne kwoty dla specjalizacji pracowników na każdym oddziale posortować rosnąco
+
+
 
 SELECT O.nazwa_oddzialu, max(placa_max) AS  N'najwyższa możliwa pensja'
 FROM lekarze L, oddzialy O, profesje_lekarzy PL, specjalizacje S
@@ -929,7 +971,12 @@ WHERE L.oddzial = O.id_oddzialu
 GROUP BY O.nazwa_oddzialu
 ORDER BY N'najwyższa możliwa pensja'
 GO
--- 6.   Podać pełny adres oraz sumę wydatków pacjenta z największą sumą wydatków za zabiegi
+
+
+
+-- 7.   Podać pełny adres oraz sumę wydatków pacjenta z największą sumą wydatków za zabiegi
+
+
 
 SELECT TOP 1 M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu, sum(Z.koszt) AS kwota
 FROM pacjeci P
@@ -939,8 +986,13 @@ INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
 GROUP BY M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu
 ORDER BY KWOTA DESC
 GO
--- 7.   Pogrupować średnie zarobki lekarzy mieszkających w każdym województwie, zatrudnionych w pierwszą sobotą
+
+
+
+-- 8.   Pogrupować średnie zarobki lekarzy mieszkających w każdym województwie, zatrudnionych w pierwszą sobotą
 --      miesiąca. Posortować po kwocie malejąco
+
+
 
 SELECT M.wojewodztwo, avg(pensja) as N'średnia pensja wojewódzka'
 FROM lekarze L, adresy A, miasta M
@@ -949,7 +1001,12 @@ WHERE L.adres = A.id_adresu AND A.miasto = M.kod_pocztowy AND
 GROUP BY M.wojewodztwo
 ORDER BY N'średnia pensja wojewódzka' DESC
 GO
--- 8.   Porównać wydatki kobiet i mężczyżn na badania i zabiegi w sierpniu 2017 roku
+
+
+
+-- 9.   Porównać wydatki kobiet i mężczyżn na badania i zabiegi w sierpniu 2017 roku
+
+
 
 SELECT sum(iif(right(imie, 1) = 'a', koszt, 0)) AS 'Panie',
        sum(iif(right(imie, 1) <> 'a', koszt, 0)) AS 'Panowie'
@@ -963,8 +1020,12 @@ FROM (SELECT koszt, imie, rozpoczecie
 WHERE datepart(YEAR, termin) = 2017 AND datepart(MONTH, termin) = 8
 GO
 
--- 9.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazawiska lekarzy, którzy ich operowali,
+
+
+-- 10.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazawiska lekarzy, którzy ich operowali,
 --      a mieszkają w tym samym mieście. Uwzględnić zabiegi przed 2008 rokiem
+
+
 
 SELECT DISTINCT concat(P.imie, ' ', P.nazwisko) AS 'Pacjent',
                 concat(L.imie, ' ', L.nazwisko) AS 'Lekarz',
@@ -980,8 +1041,13 @@ WHERE AP.miasto = AL.miasto
   AND DATEPART(YEAR, Z.rozpoczecie) < 2008
 ORDER BY M.nazwa
 GO
--- 10.  Zliczyć ilość każdej biegłości dla wszystkich lekarzy szpitala niebędących lekarzami medycyny pracy. W przypadku
+
+
+
+-- 11.  Zliczyć ilość każdej biegłości dla wszystkich lekarzy szpitala niebędących lekarzami medycyny pracy. W przypadku
 --      wielu specjalizacji zliczyć tylko tę, w której lekarz jest najbieglejszy
+
+
 
 SELECT sum(iif(bieglosc = 'wysoka', 1, 0))   AS N'Wysoka',
        sum(iif(bieglosc = N'średnia', 1, 0)) AS N'Średnia',
@@ -993,9 +1059,14 @@ WHERE iif(PL1.bieglosc = 'wysoka', 3, iif(PL1.bieglosc = N'średnia', 2, 1)) = (
     WHERE PL1.lekarz = PL2.lekarz
 )
 GO
--- 11.  Podać minimalną płacę z mniej płatnej specjalizacji i maksymalną płacę z najbardziej płatnej specjalizacji
+
+
+
+-- 12.  Podać minimalną płacę z mniej płatnej specjalizacji i maksymalną płacę z najbardziej płatnej specjalizacji
 --      lekarzy posiadających więcej niż jedną profesję. Przy każdej parze liczb wyświetlić ich imie i nazwisko jako
 --      jeden ciąg znaków oraz podać ich ID.
+
+
 
 SELECT min(S.placa_min) AS min, max(S.placa_max) AS max, (L.imie + ' ' + L.nazwisko) AS nazwa, L.id_lekarza
 FROM specjalizacje S
@@ -1005,8 +1076,13 @@ GROUP BY L.imie, L.nazwisko, L.id_lekarza
 HAVING COUNT(*) > 1
 ORDER BY max DESC
 GO
--- 12.  Wypisać imiona, nazwiska oraz liczbę preprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
+
+
+
+-- 13.  Wypisać imiona, nazwiska oraz liczbę preprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
 --      3 zabiegi i lekarze wykonujący te zabiegi nie byli chirurgami. Posortować po liczbie zabiegów malejąco
+
+
 
 SELECT P.imie, P.nazwisko, count(*) AS N'liczba zabiegów'
 FROM pacjeci P
@@ -1024,8 +1100,12 @@ HAVING count(*) > 2
 ORDER BY N'liczba zabiegów' DESC
 GO
 
--- 13.  (DZIELENIE) Podać imiona, nazwiska i ID tych anestezjologów, którzy byli obecni podczas wszystkich zabiegów
+
+
+-- 14.  (DZIELENIE) Podać imiona, nazwiska i ID tych anestezjologów, którzy byli obecni podczas wszystkich zabiegów
 --      wykonywanych przez chirurga dowolnej specjalizacji innej niż plastycznej.
+
+
 
 SELECT imie, nazwisko, id_lekarza
 FROM lekarze L1, profesje_lekarzy PL1
@@ -1049,8 +1129,11 @@ WHERE id_lekarza = lekarz
     )
 GO
 
--- 14.  (REKURENCJA) Wypisać ilość badań, które pociągnęly za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
+
+
+-- 15.  (REKURENCJA) Wypisać ilość badań, które pociągnęly za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
 --      Pogrupować po ilości pociągniętych za sobą badań.
+
 
 
 WITH B1(id_badania, poprzednie, poziom) AS
@@ -1080,11 +1163,14 @@ GO
 -- END
 
 
+
 --#################################################################################################################--
 --#																												  #--
 --#										       PROCEDURY FUNKCJE WYZWALACZE    						              #--
 --#																												  #--
 --#################################################################################################################--
+
+
 
 --  PROCEDURA 1 - procedura dodająca nowego lekarza z określonymi w przekazanej tabeli specjalizacjami.
 --  W przypadku pensji wyższej niż maksymalna spośród wszystkich wybranych specjalizacji, zostaje przypisana najwyższa,
@@ -1132,6 +1218,8 @@ GO
 -- INSERT @specjalizacje VALUES ('CH_KLP', N'średnia'), ('CH_PLA', 'niska')
 -- EXEC PROCEDURA1 'JAN', 'KOWALSKI', 30, @specjalizacje, '2018-01-01', 40000 GO
 
+
+
 -- PROCEDURA 2 - procedura podwyższające pensje pracowników o zadaną kwotę zaokrągloną do max(max profesja).
 -- Procedura zwraca przez ostani parametr ilość pensji, które by przekroczyły limit. Istenieje możliwość zwiększenia
 -- pensji wszystkich pracowników poprzez podanie ciągu pustego jako oddział.
@@ -1173,6 +1261,8 @@ GO
 -- DECLARE @ilosc INT = 0
 -- EXEC PROCEDURA2 @ilosc OUTPUT, 3000, ''
 
+
+
 -- PROCEDURA 3 - procedura usuwająca z bazy informacje o wyszystkich zabiegach wybranego pacjenta przed
 -- wskazaną datą. Procedura zwraca ciąg znaków przechowujący imię i nazwisko oraz ilość usuniętych zabiegów.
 
@@ -1195,12 +1285,187 @@ BEGIN
 END
 GO
 
-SELECT * from zabiegi WHERE pacjent = 10
-DECLARE @log VARCHAR(100)
-EXEC PROCEDURA3 @log OUTPUT, 10, '2016-03-04'
-SELECT * from zabiegi WHERE pacjent = 10
-PRINT @log
+-- SELECT * from zabiegi WHERE pacjent = 10
+-- DECLARE @log VARCHAR(100)
+-- EXEC PROCEDURA3 @log OUTPUT, 10, '2016-03-04'
+-- SELECT * from zabiegi WHERE pacjent = 10
+-- PRINT @log
+-- GO
+
+
+
+--#################################################################################################################--
+--#																												  #--
+--#										                FUNKCJE     						                      #--
+--#																												  #--
+--#################################################################################################################--
+
+
+
+-- FUNKCJA - funkcja zwracająca łączne zarobki lekarzy o określonej specjalizacji z tytułu wykonanych zabiegów dla
+--           danego roku i miasta. Jeśli podany kod pocztowy jest NULL wtedy brane pod uwagę są wszystkie miasta
+
+CREATE OR ALTER FUNCTION FUNKCJA(@spec CHAR(6) = 'CH_KLP', @rok INT = 2007, @miasto VARCHAR(6) = NULL) RETURNS MONEY AS
+BEGIN
+    DECLARE @value MONEY = (SELECT sum(koszt) FROM zabiegi
+    INNER JOIN wykonawcy_zabiegu WZ ON zabiegi.id_zabiegu = WZ.zabieg
+    INNER JOIN lekarze L ON WZ.lekarz = L.id_lekarza
+    INNER JOIN profesje_lekarzy PL ON L.id_lekarza = PL.lekarz
+    INNER JOIN adresy A ON L.adres = A.id_adresu
+    WHERE specjalizacja = @spec
+      AND datepart(YEAR, rozpoczecie) = @rok
+      AND (miasto = @miasto OR @miasto IS NULL))
+
+    RETURN iif(@value IS NULL, 0, @value)
+END
 GO
+
+-- SELECT dbo.FUNKCJA(DEFAULT, DEFAULT, '62-500') AS N'wywołanie'
+
+
+
+--#################################################################################################################--
+--#																												  #--
+--#										            WYZWALACZE    						                          #--
+--#																												  #--
+--#################################################################################################################--
+
+
+
+-- WYZWALACZ1 - wyzwalacz, który wymusza minimum poziom średni w przypadku 2 zabiegów i wysoki w przypadku min 3
+--              zabiegów w momencie aktualizacji poziomu biegłości danego lekarza w danej dziedzinie przy wcześniej
+--              wymienionej liczbie przeprowadzonych zabiegów z innym lekarzem o tej profesji.
+
+CREATE OR ALTER TRIGGER WYZWALACZ1
+    ON profesje_lekarzy
+    INSTEAD OF UPDATE AS
+    BEGIN
+        DECLARE @lekarz INT, @profesja CHAR(6), @bieglosc NVARCHAR(7)
+
+        SELECT @lekarz = lekarz, @profesja = specjalizacja, @bieglosc = bieglosc FROM inserted
+
+        DECLARE @ilosc_mentorskich_zabiegow INT =
+
+            (SELECT count(*)
+             FROM zabiegi Z
+             INNER JOIN wykonawcy_zabiegu WZ ON Z.id_zabiegu = WZ.zabieg
+             WHERE WZ.lekarz = @lekarz
+               AND id_zabiegu IN (
+                 SELECT zabieg
+                 FROM wykonawcy_zabiegu WZ2
+                 INNER JOIN profesje_lekarzy PL ON WZ2.lekarz = PL.lekarz
+                 WHERE PL.specjalizacja = @profesja AND WZ2.lekarz <> @lekarz))
+
+        IF @ilosc_mentorskich_zabiegow > 2
+        BEGIN
+            SET @bieglosc = N'wysoka'
+        END
+        ELSE IF @ilosc_mentorskich_zabiegow > 1
+        BEGIN
+            SET @bieglosc = IIF(@bieglosc = N'niska', N'średnia', @bieglosc)
+        END
+        UPDATE profesje_lekarzy SET bieglosc = @bieglosc WHERE lekarz = @lekarz AND specjalizacja = @profesja
+    END
+GO
+
+-- SELECT * from profesje_lekarzy WHERE lekarz = 20 AND specjalizacja = 'DE_RMA'
+-- UPDATE profesje_lekarzy SET bieglosc = 'niska' WHERE lekarz = 20 AND specjalizacja = 'DE_RMA'
+-- SELECT * from profesje_lekarzy WHERE lekarz = 20 AND specjalizacja = 'DE_RMA'
+
+
+
+-- WYZWALACZ2 - wyzwalacz logujący informacje o wszystkich badaniach pacjenta w momencie dodania nowego badania
+--              dla niego.
+
+
+
+CREATE OR ALTER TRIGGER WYZWALACZ2
+    ON badania
+    AFTER INSERT AS
+BEGIN
+    DECLARE @log NVARCHAR(3000) = N'Badania pacjęta: ', @pacjent INT
+    SELECT @pacjent = pacjent FROM inserted
+
+    SELECT @log + imie + ' ' + nazwisko + + CHAR(13)
+    FROM pacjeci WHERE id_pacjenta = @pacjent
+
+    DECLARE @string VARCHAR(200)
+    DECLARE cur CURSOR FOR (SELECT 'Koszt: ' + cast(koszt AS VARCHAR(7)) + CHAR(9) + opis + + CHAR(13)
+    FROM badania WHERE pacjent = @pacjent)
+
+    OPEN cur
+
+    FETCH NEXT FROM cur INTO @string
+    WHILE @@fetch_status = 0
+        BEGIN
+            SET @log += @string
+            FETCH NEXT FROM cur INTO @string
+        END
+
+    CLOSE cur
+    DEALLOCATE cur
+    PRINT @log + 'Koniec'
+END
+GO
+
+-- INSERT INTO badania VALUES (1, GETDATE(), 300, 'Badanie przesiewowe', NULL)
+
+
+
+-- WYZWALACZ3 - wyzwalacz aktualizujący płacę lekarza w przypadku gdy zostanie usunięta jego profesja, tak by mieściła
+--              się w przedziale [min(min profesja) ; max(max profesja)] np. z powodu oszukiwania w CV.
+
+
+
+CREATE OR ALTER TRIGGER WYZWALACZ3
+    ON profesje_lekarzy
+    AFTER DELETE
+    AS
+BEGIN
+    DECLARE kursor CURSOR FOR
+        SELECT id_lekarza, pensja, placa_min, placa_max
+        FROM lekarze
+        INNER JOIN (
+            SELECT lekarz, MIN(placa_min) placa_min, MAX(placa_max) placa_max
+            FROM profesje_lekarzy, specjalizacje
+            WHERE id_spec = specjalizacja
+            GROUP BY lekarz)
+            AS widełki ON id_lekarza = lekarz
+
+        WHERE pensja < placa_min
+           OR pensja > placa_max --Może być bez tego sprawdzenia bo i tak sprawdza w kusorze
+
+    DECLARE @id_lekarza INT, @pensja MONEY, @placa_min MONEY, @placa_max MONEY
+
+    OPEN kursor
+    FETCH NEXT FROM kursor INTO @id_lekarza, @pensja, @placa_min, @placa_max
+    WHILE @@FETCH_STATUS = 0
+        BEGIN
+            IF @placa_min > @pensja
+                UPDATE lekarze SET pensja=@placa_min WHERE id_lekarza = @id_lekarza
+            ELSE IF @placa_max < @pensja
+                UPDATE lekarze SET pensja=@placa_max WHERE id_lekarza = @id_lekarza
+
+            FETCH NEXT FROM kursor INTO @id_lekarza, @pensja, @placa_min, @placa_max
+        END
+    CLOSE kursor
+    DEALLOCATE kursor
+END
+GO
+
+--DELETE FROM profesje_lekarzy WHERE lekarz=1 AND specjalizacja='CH_KLP'
+
+--Wyświetlenie lekarzy i ich widełków zarobków
+
+-- SELECT id_lekarza, pensja, placa_min, placa_max FROM lekarze
+-- INNER JOIN (SELECT lekarz, MIN(placa_min) placa_min,  MAX(placa_max) placa_max
+--             FROM profesje_lekarzy, specjalizacje
+--             WHERE id_spec=specjalizacja
+--             GROUP BY lekarz)
+--             AS widełki ON id_lekarza=lekarz
+--
+--  WHERE pensja < placa_min OR pensja > placa_max
+--Można dodać sprawdzenie czy ktoś jest poza widełkami
 
 --#################################################################################################################--
 --#																												  #--
