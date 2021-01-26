@@ -34,7 +34,7 @@ USE szpital
 GO
 
 -- lekarze
--- pacjeci
+-- pacjenci
 -- oddziały
 -- specjalizacje
 -- profesje_lekarzy
@@ -182,23 +182,23 @@ ALTER TABLE lekarze
         FOREIGN KEY (oddzial) REFERENCES oddzialy (id_oddzialu)
 GO
 
-CREATE TABLE pacjeci
+CREATE TABLE pacjenci
 (
     id_pacjenta INT IDENTITY,
     imie        NVARCHAR(30) NOT NULL,
     nazwisko    NVARCHAR(30) NOT NULL,
     adres       INT          NOT NULL,
 
-    CONSTRAINT pacjeci_primary
+    CONSTRAINT pacjenci_primary
         PRIMARY KEY (id_pacjenta),
 
-    CONSTRAINT pacjeci_imie_format
+    CONSTRAINT pacjenci_imie_format
         CHECK (imie LIKE N'[A-ZĆŁŚŻŹ][a-ząćęłńóśżź]%'),
 
-    CONSTRAINT pacjeci_nazwisko_format
+    CONSTRAINT pacjenci_nazwisko_format
         CHECK (nazwisko LIKE N'[A-ZĆŁŚŻŹ][a-ząćęłńóśżź]%'),
 
-    CONSTRAINT pacjeci_adres_foreign
+    CONSTRAINT pacjenci_adres_foreign
         FOREIGN KEY (adres) REFERENCES adresy (id_adresu)
 )
 GO
@@ -216,7 +216,7 @@ CREATE TABLE zabiegi
         PRIMARY KEY (id_zabiegu),
 
     CONSTRAINT zabiegi_pacjent_foreign
-        FOREIGN KEY (pacjent) REFERENCES pacjeci (id_pacjenta),
+        FOREIGN KEY (pacjent) REFERENCES pacjenci (id_pacjenta),
 
     CONSTRAINT zabiegi_terminy
         CHECK (rozpoczecie < zakonczenie),
@@ -255,7 +255,7 @@ CREATE TABLE badania
         PRIMARY KEY (id_badania),
 
     CONSTRAINT badania_pacjent_foreign
-        FOREIGN KEY (pacjent) REFERENCES pacjeci (id_pacjenta),
+        FOREIGN KEY (pacjent) REFERENCES pacjenci (id_pacjenta),
 
     CONSTRAINT badania_poprzednie_foreign
         FOREIGN KEY (poprzednie) REFERENCES badania (id_badania),
@@ -546,66 +546,66 @@ GO
 --	################ PACJĘI ################# -- (60)
 
 
-INSERT INTO pacjeci VALUES (N'Dominik', N'Wróblewski', 31)
-INSERT INTO pacjeci VALUES (N'Marian', N'Urbański', 32)
-INSERT INTO pacjeci VALUES (N'Marzena', N'Kowalczyk', 33)
-INSERT INTO pacjeci VALUES (N'Sara', N'Pietrzak', 34)
-INSERT INTO pacjeci VALUES (N'Teresa', N'Stępień', 35)
-INSERT INTO pacjeci VALUES (N'Klaudia', N'Pawlak', 36)
-INSERT INTO pacjeci VALUES (N'Katarzyna', N'Kalinowski', 37)
-INSERT INTO pacjeci VALUES (N'Igor', N'Baran', 38)
-INSERT INTO pacjeci VALUES (N'Mariola', N'Zawadzki', 39)
-INSERT INTO pacjeci VALUES (N'Milena', N'Włodarczyk', 40)
-INSERT INTO pacjeci VALUES (N'Jadwiga', N'Jasiński', 41)
-INSERT INTO pacjeci VALUES (N'Patryk', N'Kowalski', 42)
-INSERT INTO pacjeci VALUES (N'Konrad', N'Zając', 43)
-INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Cieślak', 44)
-INSERT INTO pacjeci VALUES (N'Karina', N'Górski', 45)
-INSERT INTO pacjeci VALUES (N'Samanta', N'Rutkowski', 46)
-INSERT INTO pacjeci VALUES (N'Renata', N'Nowak', 47)
-INSERT INTO pacjeci VALUES (N'Julia', N'Szulc', 48)
-INSERT INTO pacjeci VALUES (N'Anna', N'Wilk', 49)
-INSERT INTO pacjeci VALUES (N'Robert', N'Krupa', 50)
-INSERT INTO pacjeci VALUES (N'Mirosława', N'Pawłowski', 51)
-INSERT INTO pacjeci VALUES (N'Mariusz', N'Sokołowski', 52)
-INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Jakubowski', 53)
-INSERT INTO pacjeci VALUES (N'Natalia', N'Piotrowski', 54)
-INSERT INTO pacjeci VALUES (N'Zuzanna', N'Kubiak', 55)
-INSERT INTO pacjeci VALUES (N'Zdzisław', N'Wojciechowski', 56)
-INSERT INTO pacjeci VALUES (N'Andrzej', N'Baranowski', 57)
-INSERT INTO pacjeci VALUES (N'Lech', N'Zieliński', 58)
-INSERT INTO pacjeci VALUES (N'Igor', N'Wasilewski', 59)
-INSERT INTO pacjeci VALUES (N'Zdzisław', N'Woźniak', 60)
-INSERT INTO pacjeci VALUES (N'Bogumił', N'Rutkowski', 61)
-INSERT INTO pacjeci VALUES (N'Krystyna', N'Wójcik', 62)
-INSERT INTO pacjeci VALUES (N'Walenty', N'Sikorski', 63)
-INSERT INTO pacjeci VALUES (N'Wojciech', N'Król', 64)
-INSERT INTO pacjeci VALUES (N'Adam', N'Konieczny', 65)
-INSERT INTO pacjeci VALUES (N'Patrycja', N'Czarnecki', 66)
-INSERT INTO pacjeci VALUES (N'Jakub', N'Jasiński', 67)
-INSERT INTO pacjeci VALUES (N'Magdalena', N'Andrzejewski', 68)
-INSERT INTO pacjeci VALUES (N'Kamil', N'Król', 69)
-INSERT INTO pacjeci VALUES (N'Andrzej', N'Kaczmarek', 70)
-INSERT INTO pacjeci VALUES (N'Rafał', N'Olszewski', 71)
-INSERT INTO pacjeci VALUES (N'Bartłomiej', N'Zawadzki', 72)
-INSERT INTO pacjeci VALUES (N'Sabina', N'Nowakowski', 73)
-INSERT INTO pacjeci VALUES (N'Sylwester', N'Pietrzak', 74)
-INSERT INTO pacjeci VALUES (N'Krystyna', N'Jankowski', 75)
-INSERT INTO pacjeci VALUES (N'Katarzyna', N'Jabłoński', 76)
-INSERT INTO pacjeci VALUES (N'Damian', N'Głowacki', 77)
-INSERT INTO pacjeci VALUES (N'Małgorzata', N'Czerwiński', 78)
-INSERT INTO pacjeci VALUES (N'Wiktor', N'Konieczny', 79)
-INSERT INTO pacjeci VALUES (N'Jakub', N'Kubiak', 80)
-INSERT INTO pacjeci VALUES (N'Daniel', N'Woźniak', 81)
-INSERT INTO pacjeci VALUES (N'Jędrzej', N'Maciejewski', 82)
-INSERT INTO pacjeci VALUES (N'Marzena', N'Adamczyk', 83)
-INSERT INTO pacjeci VALUES (N'Zofia', N'Cieślak', 84)
-INSERT INTO pacjeci VALUES (N'Henryk', N'Głowacki', 85)
-INSERT INTO pacjeci VALUES (N'Paulina', N'Rutkowski', 86)
-INSERT INTO pacjeci VALUES (N'Małgorzata', N'Adamski', 87)
-INSERT INTO pacjeci VALUES (N'Katarzyna', N'Zając', 88)
-INSERT INTO pacjeci VALUES (N'Sebastian', N'Maciejewski', 89)
-INSERT INTO pacjeci VALUES (N'Ireneusz', N'Maciejewski', 90)
+INSERT INTO pacjenci VALUES (N'Dominik', N'Wróblewski', 31)
+INSERT INTO pacjenci VALUES (N'Marian', N'Urbański', 32)
+INSERT INTO pacjenci VALUES (N'Marzena', N'Kowalczyk', 33)
+INSERT INTO pacjenci VALUES (N'Sara', N'Pietrzak', 34)
+INSERT INTO pacjenci VALUES (N'Teresa', N'Stępień', 35)
+INSERT INTO pacjenci VALUES (N'Klaudia', N'Pawlak', 36)
+INSERT INTO pacjenci VALUES (N'Katarzyna', N'Kalinowski', 37)
+INSERT INTO pacjenci VALUES (N'Igor', N'Baran', 38)
+INSERT INTO pacjenci VALUES (N'Mariola', N'Zawadzki', 39)
+INSERT INTO pacjenci VALUES (N'Milena', N'Włodarczyk', 40)
+INSERT INTO pacjenci VALUES (N'Jadwiga', N'Jasiński', 41)
+INSERT INTO pacjenci VALUES (N'Patryk', N'Kowalski', 42)
+INSERT INTO pacjenci VALUES (N'Konrad', N'Zając', 43)
+INSERT INTO pacjenci VALUES (N'Bartłomiej', N'Cieślak', 44)
+INSERT INTO pacjenci VALUES (N'Karina', N'Górski', 45)
+INSERT INTO pacjenci VALUES (N'Samanta', N'Rutkowski', 46)
+INSERT INTO pacjenci VALUES (N'Renata', N'Nowak', 47)
+INSERT INTO pacjenci VALUES (N'Julia', N'Szulc', 48)
+INSERT INTO pacjenci VALUES (N'Anna', N'Wilk', 49)
+INSERT INTO pacjenci VALUES (N'Robert', N'Krupa', 50)
+INSERT INTO pacjenci VALUES (N'Mirosława', N'Pawłowski', 51)
+INSERT INTO pacjenci VALUES (N'Mariusz', N'Sokołowski', 52)
+INSERT INTO pacjenci VALUES (N'Bartłomiej', N'Jakubowski', 53)
+INSERT INTO pacjenci VALUES (N'Natalia', N'Piotrowski', 54)
+INSERT INTO pacjenci VALUES (N'Zuzanna', N'Kubiak', 55)
+INSERT INTO pacjenci VALUES (N'Zdzisław', N'Wojciechowski', 56)
+INSERT INTO pacjenci VALUES (N'Andrzej', N'Baranowski', 57)
+INSERT INTO pacjenci VALUES (N'Lech', N'Zieliński', 58)
+INSERT INTO pacjenci VALUES (N'Igor', N'Wasilewski', 59)
+INSERT INTO pacjenci VALUES (N'Zdzisław', N'Woźniak', 60)
+INSERT INTO pacjenci VALUES (N'Bogumił', N'Rutkowski', 61)
+INSERT INTO pacjenci VALUES (N'Krystyna', N'Wójcik', 62)
+INSERT INTO pacjenci VALUES (N'Walenty', N'Sikorski', 63)
+INSERT INTO pacjenci VALUES (N'Wojciech', N'Król', 64)
+INSERT INTO pacjenci VALUES (N'Adam', N'Konieczny', 65)
+INSERT INTO pacjenci VALUES (N'Patrycja', N'Czarnecki', 66)
+INSERT INTO pacjenci VALUES (N'Jakub', N'Jasiński', 67)
+INSERT INTO pacjenci VALUES (N'Magdalena', N'Andrzejewski', 68)
+INSERT INTO pacjenci VALUES (N'Kamil', N'Król', 69)
+INSERT INTO pacjenci VALUES (N'Andrzej', N'Kaczmarek', 70)
+INSERT INTO pacjenci VALUES (N'Rafał', N'Olszewski', 71)
+INSERT INTO pacjenci VALUES (N'Bartłomiej', N'Zawadzki', 72)
+INSERT INTO pacjenci VALUES (N'Sabina', N'Nowakowski', 73)
+INSERT INTO pacjenci VALUES (N'Sylwester', N'Pietrzak', 74)
+INSERT INTO pacjenci VALUES (N'Krystyna', N'Jankowski', 75)
+INSERT INTO pacjenci VALUES (N'Katarzyna', N'Jabłoński', 76)
+INSERT INTO pacjenci VALUES (N'Damian', N'Głowacki', 77)
+INSERT INTO pacjenci VALUES (N'Małgorzata', N'Czerwiński', 78)
+INSERT INTO pacjenci VALUES (N'Wiktor', N'Konieczny', 79)
+INSERT INTO pacjenci VALUES (N'Jakub', N'Kubiak', 80)
+INSERT INTO pacjenci VALUES (N'Daniel', N'Woźniak', 81)
+INSERT INTO pacjenci VALUES (N'Jędrzej', N'Maciejewski', 82)
+INSERT INTO pacjenci VALUES (N'Marzena', N'Adamczyk', 83)
+INSERT INTO pacjenci VALUES (N'Zofia', N'Cieślak', 84)
+INSERT INTO pacjenci VALUES (N'Henryk', N'Głowacki', 85)
+INSERT INTO pacjenci VALUES (N'Paulina', N'Rutkowski', 86)
+INSERT INTO pacjenci VALUES (N'Małgorzata', N'Adamski', 87)
+INSERT INTO pacjenci VALUES (N'Katarzyna', N'Zając', 88)
+INSERT INTO pacjenci VALUES (N'Sebastian', N'Maciejewski', 89)
+INSERT INTO pacjenci VALUES (N'Ireneusz', N'Maciejewski', 90)
 GO
 
 --	################ ZABIEGI ################# -- (30)
@@ -876,14 +876,14 @@ GO
 
 
 
--- 1.   Podać 3 pierwsz nazwy miast, w których mieszkają pacjęci, którzy wydali najwięcej na zabiegi
+-- 1.   Podać 3 pierwsze nazwy miast, w których mieszkają pacjenci, którzy wydali najwięcej na zabiegi
 
 
 
 
-SELECT TOP 3 nazwa AS 'miasta z pacjenatami o największych wydatkach na zabiegi'
+SELECT TOP 3 nazwa AS 'miasta z pacjentami o największych wydatkach na zabiegi'
 FROM zabiegi
-INNER JOIN pacjeci P ON zabiegi.pacjent = P.id_pacjenta
+INNER JOIN pacjenci P ON zabiegi.pacjent = P.id_pacjenta
 INNER JOIN adresy A ON P.adres = A.id_adresu
 INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
 GROUP BY pacjent, nazwa
@@ -899,11 +899,11 @@ GO
 
 SELECT (SELECT sum(pensja) FROM lekarze WHERE DATEPART(YEAR, zatrudniony) <= 2010) - sum(koszt)
 FROM (SELECT koszt
-      FROM zabiegi, pacjeci
+      FROM zabiegi, pacjenci
       WHERE pacjent = id_pacjenta AND DATEPART(YEAR, rozpoczecie) = 2010
       UNION ALL
       SELECT koszt
-      FROM badania, pacjeci
+      FROM badania, pacjenci
       WHERE pacjent = id_pacjenta AND DATEPART(YEAR, data_badania) = 2010) AS KWOTY(koszt)
 GO
 
@@ -930,7 +930,7 @@ GO
 
 
 SELECT imie, nazwisko
-FROM pacjeci
+FROM pacjenci
 WHERE id_pacjenta NOT IN (SELECT pacjent FROM badania)
   AND id_pacjenta IN (SELECT pacjent FROM zabiegi)
   AND id_pacjenta NOT IN (
@@ -945,7 +945,7 @@ GO
 
 
 -- 5.   Podać minimalne zarobki pracowników zatrudnionych w kolejnych latach według roku zatrudnienia. Brane pod uwagę
---      są tylko lata podczas których zatrudnionych było min 3 pracowników, a minimalna pensja przekracza 6000.
+--      są tylko lata, podczas których zatrudnionych było min 3 pracowników, a minimalna pensja przekracza 6000.
 --      Wyniki posortować malejąco.
 
 
@@ -979,7 +979,7 @@ GO
 
 
 SELECT TOP 1 M.nazwa, M.wojewodztwo, A.nr_domu, A.nr_lokalu, sum(Z.koszt) AS kwota
-FROM pacjeci P
+FROM pacjenci P
 INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
 INNER JOIN adresy A ON P.adres = A.id_adresu
 INNER JOIN miasta M ON A.miasto = M.kod_pocztowy
@@ -1004,33 +1004,33 @@ GO
 
 
 
--- 9.   Porównać wydatki kobiet i mężczyżn na badania i zabiegi w sierpniu 2017 roku
+-- 9.   Porównać wydatki kobiet i mężczyzn na badania i zabiegi w sierpniu 2017 roku
 
 
 
 SELECT sum(iif(right(imie, 1) = 'a', koszt, 0)) AS 'Panie',
        sum(iif(right(imie, 1) <> 'a', koszt, 0)) AS 'Panowie'
 FROM (SELECT koszt, imie, rozpoczecie
-      FROM zabiegi, pacjeci
+      FROM zabiegi, pacjenci
       WHERE pacjent = id_pacjenta
       UNION ALL
       SELECT koszt, imie, data_badania
-      FROM badania, pacjeci
+      FROM badania, pacjenci
       WHERE pacjent = id_pacjenta) AS ZSBS(koszt, imie, termin)
 WHERE datepart(YEAR, termin) = 2017 AND datepart(MONTH, termin) = 8
 GO
 
 
 
--- 10.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazawiska lekarzy, którzy ich operowali,
---      a mieszkają w tym samym mieście. Uwzględnić zabiegi przed 2008 rokiem
+-- 10.   Podać imiona, nazwiska i miasta zamieszkania pacjentów oraz imiona i nazwiska lekarzy, którzy ich operowali,
+--       a mieszkają w tym samym mieście. Uwzględnić zabiegi przed 2008 rokiem
 
 
 
 SELECT DISTINCT concat(P.imie, ' ', P.nazwisko) AS 'Pacjent',
                 concat(L.imie, ' ', L.nazwisko) AS 'Lekarz',
                 M.nazwa
-FROM pacjeci P
+FROM pacjenci P
 INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
 INNER JOIN wykonawcy_zabiegu WZ ON Z.id_zabiegu = WZ.zabieg
 INNER JOIN lekarze L ON WZ.lekarz = L.id_lekarza
@@ -1045,7 +1045,7 @@ GO
 
 
 -- 11.  Zliczyć ilość każdej biegłości dla wszystkich lekarzy szpitala niebędących lekarzami medycyny pracy. W przypadku
---      wielu specjalizacji zliczyć tylko tę, w której lekarz jest najbieglejszy
+--      wielu specjalizacji zliczyć tylko tę, w której lekarz jest najbieglejszy.
 
 
 
@@ -1063,7 +1063,7 @@ GO
 
 
 -- 12.  Podać minimalną płacę z mniej płatnej specjalizacji i maksymalną płacę z najbardziej płatnej specjalizacji
---      lekarzy posiadających więcej niż jedną profesję. Przy każdej parze liczb wyświetlić ich imie i nazwisko jako
+--      lekarzy posiadających więcej niż jedną profesję. Przy każdej parze liczb wyświetlić ich imię i nazwisko jako
 --      jeden ciąg znaków oraz podać ich ID.
 
 
@@ -1079,13 +1079,13 @@ GO
 
 
 
--- 13.  Wypisać imiona, nazwiska oraz liczbę preprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
+-- 13.  Wypisać imiona, nazwiska oraz liczbę prezprowadzonych zabiegów dla pacjentów, którzy mieli wykonane przynajmniej
 --      3 zabiegi i lekarze wykonujący te zabiegi nie byli chirurgami. Posortować po liczbie zabiegów malejąco
 
 
 
 SELECT P.imie, P.nazwisko, count(*) AS N'liczba zabiegów'
-FROM pacjeci P
+FROM pacjenci P
 INNER JOIN zabiegi Z ON P.id_pacjenta = Z.pacjent
 WHERE id_zabiegu IN
       (
@@ -1131,7 +1131,7 @@ GO
 
 
 
--- 15.  (REKURENCJA) Wypisać ilość badań, które pociągnęly za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
+-- 15.  (REKURENCJA) Wypisać ilość badań, które pociągnęły za sobą dokładnie więcej niż 1 i mniej niż 4 inne badania.
 --      Pogrupować po ilości pociągniętych za sobą badań.
 
 
@@ -1154,13 +1154,6 @@ SELECT poziom AS N'długość serii', count(*) AS N'ilość'
 FROM B2
 GROUP BY poziom
 GO
-
--- 15.  (NIEPRECYZYJNE) Podać chirurgów zarabiających dużo.
-
--- CREATE FUNCTION SURGEON_HIGH_SALARY(@kwota MONEY, @a MONEY, @b MONEY) RETURNS INT AS
--- BEGIN
---
--- END
 
 
 
@@ -1221,7 +1214,7 @@ GO
 
 
 -- PROCEDURA 2 - procedura podwyższające pensje pracowników o zadaną kwotę zaokrągloną do max(max profesja).
--- Procedura zwraca przez ostani parametr ilość pensji, które by przekroczyły limit. Istenieje możliwość zwiększenia
+-- Procedura zwraca przez ostatni parametr ilość pensji, które by przekroczyły limit. Istnieje możliwość zwiększenia
 -- pensji wszystkich pracowników poprzez podanie ciągu pustego jako oddział.
 
 CREATE OR ALTER PROCEDURE PROCEDURA2(@ilosc_przekroczonych INT OUTPUT, @pensja MONEY = 300, @oddzial CHAR(2) = 'CH') AS
@@ -1263,12 +1256,12 @@ GO
 
 
 
--- PROCEDURA 3 - procedura usuwająca z bazy informacje o wyszystkich zabiegach wybranego pacjenta przed
+-- PROCEDURA 3 - procedura usuwająca z bazy informacje o wszystkich zabiegach wybranego pacjenta przed
 -- wskazaną datą. Procedura zwraca ciąg znaków przechowujący imię i nazwisko oraz ilość usuniętych zabiegów.
 
 CREATE OR ALTER PROCEDURE PROCEDURA3(@log VARCHAR(100) OUTPUT, @pacjent INT, @data DATE = '2010-01-01') AS
 BEGIN
-    SET @log = (SELECT imie + ' ' + nazwisko + ' ' FROM pacjeci WHERE id_pacjenta = @pacjent)
+    SET @log = (SELECT imie + ' ' + nazwisko + ' ' FROM pacjenci WHERE id_pacjenta = @pacjent)
     SET @log += N'usunięte zabiegi: '
 
     DELETE
@@ -1320,7 +1313,7 @@ BEGIN
 END
 GO
 
--- SELECT dbo.FUNKCJA(DEFAULT, DEFAULT, '62-500') AS N'wywołanie'
+SELECT dbo.FUNKCJA(DEFAULT, DEFAULT, '62-500') AS N'wywołanie'
 
 
 
@@ -1387,10 +1380,10 @@ BEGIN
     SELECT @pacjent = pacjent FROM inserted
 
     SELECT @log + imie + ' ' + nazwisko + + CHAR(13)
-    FROM pacjeci WHERE id_pacjenta = @pacjent
+    FROM pacjenci WHERE id_pacjenta = @pacjent
 
     DECLARE @string VARCHAR(200)
-    DECLARE cur CURSOR FOR (SELECT 'Koszt: ' + cast(koszt AS VARCHAR(7)) + CHAR(9) + opis + + CHAR(13)
+    DECLARE cur CURSOR FOR (SELECT 'Koszt: ' + cast(koszt AS VARCHAR(7)) + CHAR(9) + opis + CHAR(13)
     FROM badania WHERE pacjent = @pacjent)
 
     OPEN cur
@@ -1412,7 +1405,7 @@ GO
 
 
 
--- WYZWALACZ3 - wyzwalacz aktualizujący płacę lekarza w przypadku gdy zostanie usunięta jego profesja, tak by mieściła
+-- WYZWALACZ3 - wyzwalacz aktualizujący płacę lekarza w przypadku, gdy zostanie usunięta jego profesja, tak by mieściła
 --              się w przedziale [min(min profesja) ; max(max profesja)] np. z powodu oszukiwania w CV.
 
 
@@ -1480,7 +1473,7 @@ GO
 -- SELECT * FROM lekarze
 -- SELECT * FROM profesje_lekarzy
 -- SELECT * FROM oddzialy
--- SELECT * FROM pacjeci
+-- SELECT * FROM pacjenci
 -- SELECT * FROM zabiegi
 -- SELECT * FROM wykonawcy_zabiegu
 -- SELECT * FROM badania
