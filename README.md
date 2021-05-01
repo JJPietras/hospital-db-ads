@@ -16,10 +16,10 @@
 
 ## Task Schedule
 
-#### 1. Task 1 - Ski jumpers
-#### 2. Task 2 - Bureau
-#### 3. Task 3 - Variables, Loops, Procedures
-#### 4. Task 4 - Cursors
-#### 5. Task 5 - Triggers
+* Task 1 - Ski jumpers
+* Task 2 - Bureau
+* Task 3 - Variables, Loops, Procedures
+* Task 4 - Cursors
+* Task 5 - Triggers
 
-#### 6. Project - Hospital (Final)
+* Project - Hospital (Final)
