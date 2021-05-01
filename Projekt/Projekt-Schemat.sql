@@ -7,10 +7,10 @@
 --  Zajęcia:    Wtorek 14:00-15:30
 --  Termin:     16.06.2020
 --
---	IDE:        MS SQL Server Management Studio 18
---	IDE:        JetBrains DataGrip 2020.1
+--  IDE:        MS SQL Server Management Studio 18
+--  IDE:        JetBrains DataGrip 2020.1
 --
---	Tabele:     10
+--  Tabele:     10
 --  Kwerendy:   15
 --
 -- //===============================================//
