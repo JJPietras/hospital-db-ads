@@ -1,0 +1,9 @@
+USE Testing;
+
+# or GLOBAL instead of SESSION
+SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+# SELECT @@global.transaction_ISOLATION;
+# SELECT @@transaction_ISOLATION;
+SELECT *
+FROM users
+WHERE id = 1

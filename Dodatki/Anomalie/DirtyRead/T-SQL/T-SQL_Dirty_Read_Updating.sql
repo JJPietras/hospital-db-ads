@@ -1,0 +1,11 @@
+use Testing;
+
+BEGIN TRAN;
+
+UPDATE users
+SET name = 'ABC'
+WHERE id = 1
+
+WAITFOR DELAY '00:00:10';
+
+ROLLBACK TRAN;

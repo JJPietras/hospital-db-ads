@@ -1,0 +1,11 @@
+use Testing;
+
+START TRANSACTION;
+
+UPDATE users
+SET name = 'ABC'
+WHERE id = 1;
+
+SELECT SLEEP(10);
+
+ROLLBACK;
