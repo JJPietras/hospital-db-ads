@@ -9,6 +9,9 @@
 -- default isolation level is REPEATABLE READ
 -- that prevents Dirty Read Anomaly and Non-Repeatable Reads
 
+-- InnoDB REPEATABLE-READ transaction isolation level prevents phantom rows,
+-- but only if your SELECT query is a non-locking query.
+
 -- in order to simulate this behaviour, it's necessary to change the
 -- transaction isolation level to READ COMMITED using:
 

@@ -1,7 +1,5 @@
 use Testing;
 
--- DBCC USEROPTIONS;
-
 UPDATE users
 SET name = 'ABC'
 WHERE id = 1
